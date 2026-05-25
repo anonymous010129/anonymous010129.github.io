@@ -279,11 +279,18 @@ th {
   gap: 12px;
 }
 
+.sample-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 6px;
+}
+
 .v2a-matrix-head {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 12px;
+  min-width: 1120px;
 }
 
 .matrix-head-cell {
@@ -299,18 +306,22 @@ th {
 
 .grid-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 720px;
 }
 
 .grid-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 1020px;
 }
 
 .grid-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-width: 1120px;
 }
 
 .grid-3-wide {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 1020px;
 }
 
 .media-panel {
@@ -365,6 +376,10 @@ th {
   object-fit: contain;
 }
 
+.piano-panel video {
+  height: 188px;
+}
+
 .v2a-panel video {
   max-height: 148px;
 }
@@ -411,26 +426,10 @@ th {
   line-height: 1.45;
 }
 
-@media (max-width: 1220px) {
-  .grid-4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .v2a-matrix-head {
-    display: none;
-  }
-}
-
 @media (max-width: 1080px) {
   .landing-grid,
   .results-grid,
-  .page-card-grid,
-  .grid-3,
-  .grid-3-wide {
-    grid-template-columns: 1fr;
-  }
-
-  .grid-2 {
+  .page-card-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -453,9 +452,5 @@ th {
   .notice-band {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .grid-4 {
-    grid-template-columns: 1fr;
   }
 }

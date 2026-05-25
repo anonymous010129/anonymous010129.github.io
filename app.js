@@ -170,9 +170,10 @@ function renderPianoSample(sample, index) {
         <p class="sample-subtitle">Text: ${escapeHtml(sample.gt_caption)}</p>
       </div>
 
-      <div class="sample-grid grid-3">
-        ${renderVideoPanel({
-          panelClass: "",
+      <div class="sample-scroll">
+        <div class="sample-grid grid-3">
+          ${renderVideoPanel({
+          panelClass: "piano-panel",
           tag: "Anchor video",
           title: "Ground-truth clip",
           rows: [
@@ -183,7 +184,7 @@ function renderPianoSample(sample, index) {
         })}
 
         ${renderVideoAudioPanel({
-          panelClass: "ref-panel",
+          panelClass: "ref-panel piano-panel",
           tag: "Reference A",
           title: "Retrieved reference and generated result",
           rows: [
@@ -196,7 +197,7 @@ function renderPianoSample(sample, index) {
         })}
 
         ${renderVideoAudioPanel({
-          panelClass: "ref-panel",
+          panelClass: "ref-panel piano-panel",
           tag: "Reference B",
           title: "Retrieved reference and generated result",
           rows: [
@@ -207,6 +208,7 @@ function renderPianoSample(sample, index) {
           videoSrc: sample.paths.augBVideo,
           audioSrc: sample.paths.refB
         })}
+        </div>
       </div>
     </section>
   `;
@@ -220,15 +222,16 @@ function renderV2ASample(sample, index) {
         <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
       </div>
 
-      <div class="v2a-matrix-head">
-        <div class="matrix-head-cell">Reference</div>
-        <div class="matrix-head-cell">ConRet</div>
-        <div class="matrix-head-cell">AC-Foley</div>
-        <div class="matrix-head-cell">ControlFoley</div>
-      </div>
+      <div class="sample-scroll">
+        <div class="v2a-matrix-head">
+          <div class="matrix-head-cell">Reference</div>
+          <div class="matrix-head-cell">ConRet</div>
+          <div class="matrix-head-cell">AC-Foley</div>
+          <div class="matrix-head-cell">ControlFoley</div>
+        </div>
 
-      <div class="sample-grid grid-4">
-        ${renderV2ARow({
+        <div class="sample-grid grid-4">
+          ${renderV2ARow({
           rowLabel: "Reference GT",
           refTitle: "Ground-truth reference audio",
           refRows: [
@@ -275,6 +278,7 @@ function renderV2ASample(sample, index) {
           label: sample.label,
           text: "Random same-class reference"
         })}
+        </div>
       </div>
     </section>
   `;
@@ -342,13 +346,15 @@ function renderT2ASample(sample, index) {
           <h3>Reference Audio</h3>
           <p>Inputs provided to the model.</p>
         </div>
-        <div class="sample-grid grid-2">
-          ${renderAudioPanel({
+        <div class="sample-scroll">
+          <div class="sample-grid grid-2">
+            ${renderAudioPanel({
             panelClass: "ref-panel",
             tag: "Reference",
             title: "Mid-sim retrieval reference",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
+              { label: "Text", value: sample.label },
               { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
             ],
             audioSrc: sample.paths.refMid,
@@ -360,11 +366,13 @@ function renderT2ASample(sample, index) {
             tag: "Reference",
             title: "Random same-class reference",
             rows: [
-              { label: "Label", value: titleCase(sample.label) }
+              { label: "Label", value: titleCase(sample.label) },
+              { label: "Text", value: sample.label }
             ],
             audioSrc: sample.paths.refRandom,
             isAvailable: true
           })}
+          </div>
         </div>
       </div>
 
@@ -373,13 +381,15 @@ function renderT2ASample(sample, index) {
           <h3>Generated Audio</h3>
           <p>Outputs for the same label under different conditioning modes.</p>
         </div>
-        <div class="sample-grid grid-3-wide">
-          ${renderAudioPanel({
+        <div class="sample-scroll">
+          <div class="sample-grid grid-3-wide">
+            ${renderAudioPanel({
             panelClass: "gen-panel",
             tag: "Generation",
             title: "Mid-conditioned generation",
             rows: [
-              { label: "Label", value: titleCase(sample.label) }
+              { label: "Label", value: titleCase(sample.label) },
+              { label: "Text", value: sample.label }
             ],
             audioSrc: sample.paths.genMid,
             isAvailable: true
@@ -390,7 +400,8 @@ function renderT2ASample(sample, index) {
             tag: "Generation",
             title: "Random-conditioned generation",
             rows: [
-              { label: "Label", value: titleCase(sample.label) }
+              { label: "Label", value: titleCase(sample.label) },
+              { label: "Text", value: sample.label }
             ],
             audioSrc: sample.paths.genRandom,
             isAvailable: true
@@ -401,11 +412,13 @@ function renderT2ASample(sample, index) {
             tag: "Generation",
             title: "No-reference generation",
             rows: [
-              { label: "Label", value: titleCase(sample.label) }
+              { label: "Label", value: titleCase(sample.label) },
+              { label: "Text", value: sample.label }
             ],
             audioSrc: sample.paths.genNoRef,
             isAvailable: true
           })}
+          </div>
         </div>
       </div>
     </section>
