@@ -30,45 +30,24 @@ const V2A_MISSING_REFERENCE_AUDIO = {
 
 const PAGE_CONFIG = {
   piano: {
-    kicker: "Page 1 of 3",
+    kicker: "Page 1",
     title: "VGGSound-ConRet Dataset Check",
-    description: "Shared piano retrieval pairs for side-by-side review of the ground-truth clip and two audio-conditioned variants. Each example keeps the retrieved reference audio next to the generated result so the conditioning intent is easy to verify.",
-    toolbarNote: "All 5 shared piano examples are included.",
-    jumpLabel: "Jump to example",
+    description: "Samples from the augmentation corpus. Each anchor video is paired with retrieved reference audio and generated variants so the conditioning signal can be checked directly.",
     load: loadPianoSamples,
-    summary: (samples) => [
-      { label: "Examples", value: String(samples.length) },
-      { label: "Views", value: "GT + 2 variants" },
-      { label: "Shared refs", value: `${samples.length * 2} audio files` }
-    ],
     render: renderPianoSample
   },
   v2a: {
-    kicker: "Page 2 of 3",
+    kicker: "Page 2",
     title: "Audio Conditioned V2A Generation Quality Check",
-    description: "A focused set of 10 shared V2A samples selected from the delivered folder contents. Each sample exposes the retrieved reference audio for both conditions together with the corresponding generated video output for quick qualitative comparison.",
-    toolbarNote: "Using all 10 shared V2A sample IDs. One sample only includes generated videos in the shared folder, so its reference audio is marked unavailable.",
-    jumpLabel: "Jump to sample",
+    description: "Shared V2A subset with mid-sim retrieval references and random same-class references. Compare how the generated result changes when only the reference changes.",
     load: loadV2ASamples,
-    summary: (samples) => [
-      { label: "Sample IDs", value: String(samples.length) },
-      { label: "Playable outputs", value: `${samples.length * 2} videos` },
-      { label: "Selection", value: "Shared folder only" }
-    ],
     render: renderV2ASample
   },
   t2a: {
-    kicker: "Page 3 of 3",
+    kicker: "Page 3",
     title: "Audio Conditioned T2A Generation Quality Check",
-    description: "All shared T2A samples are presented with their no-reference generation, mid-reference generation, random-class reference generation, and the original shared reference audios when available.",
-    toolbarNote: "All 5 shared T2A sample IDs are included.",
-    jumpLabel: "Jump to sample",
+    description: "Shared T2A subset with no-reference, mid-reference, and random-reference generation modes. Reference inputs and generated outputs are separated below for easier listening.",
     load: loadT2ASamples,
-    summary: (samples) => [
-      { label: "Sample IDs", value: String(samples.length) },
-      { label: "Playable outputs", value: `${samples.length * 3} audios` },
-      { label: "Reference sets", value: `${samples.length * 2} audios` }
-    ],
     render: renderT2ASample
   }
 };
@@ -76,7 +55,7 @@ const PAGE_CONFIG = {
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
-  const pageKey = document.body.dataset.page || "piano";
+  const pageKey = document.body.dataset.page;
   const config = PAGE_CONFIG[pageKey];
   if (!config) {
     return;
@@ -86,8 +65,6 @@ async function init() {
 
   try {
     const samples = await config.load();
-    renderSummary(config.summary(samples));
-    renderToolbar(config, samples);
     renderSamples(samples, config.render);
   } catch (error) {
     renderError(error);
@@ -101,43 +78,6 @@ function setPageChrome(pageKey, config) {
 
   document.querySelectorAll("[data-nav]").forEach((link) => {
     link.classList.toggle("is-active", link.dataset.nav === pageKey);
-  });
-}
-
-function renderSummary(metrics) {
-  const summaryStrip = document.getElementById("summary-strip");
-  summaryStrip.innerHTML = metrics.map((metric) => `
-    <div class="summary-metric">
-      <span class="summary-label">${escapeHtml(metric.label)}</span>
-      <span class="summary-value">${escapeHtml(metric.value)}</span>
-    </div>
-  `).join("");
-}
-
-function renderToolbar(config, samples) {
-  const toolbar = document.getElementById("toolbar");
-  const options = samples.map((sample, index) => `
-    <option value="${sample.anchor}">${escapeHtml(optionLabel(sample, index))}</option>
-  `).join("");
-
-  toolbar.innerHTML = `
-    <div class="toolbar-note">${escapeHtml(config.toolbarNote)}</div>
-    <div class="jump-wrap">
-      <label for="jump-select">${escapeHtml(config.jumpLabel)}</label>
-      <select id="jump-select">
-        <option value="">Select a sample</option>
-        ${options}
-      </select>
-    </div>
-  `;
-
-  const jumpSelect = document.getElementById("jump-select");
-  jumpSelect.addEventListener("change", (event) => {
-    const targetId = event.target.value;
-    if (!targetId) {
-      return;
-    }
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 
@@ -157,7 +97,7 @@ function renderError(error) {
 }
 
 async function loadPianoSamples() {
-  const metas = await Promise.all(
+  return Promise.all(
     PIANO_SAMPLE_DIRS.map(async (dir) => {
       const meta = await fetchJson(`piano/${dir}/meta.json`);
       return {
@@ -174,8 +114,6 @@ async function loadPianoSamples() {
       };
     })
   );
-
-  return metas;
 }
 
 async function loadV2ASamples() {
@@ -185,10 +123,10 @@ async function loadV2ASamples() {
     if (!sample) {
       throw new Error(`Missing V2A mapping for ${id}`);
     }
+
     const missingAudio = V2A_MISSING_REFERENCE_AUDIO[id] || {};
     return {
       ...sample,
-      id,
       anchor: `sample-${id}`,
       available: {
         refMid: !missingAudio.refMid,
@@ -211,9 +149,9 @@ async function loadT2ASamples() {
     if (!sample) {
       throw new Error(`Missing T2A mapping for ${id}`);
     }
+
     return {
       ...sample,
-      id,
       anchor: `sample-${id}`,
       paths: {
         refMid: `T2A_sample/ref_mid/${id}.wav`,
@@ -231,57 +169,48 @@ function renderPianoSample(sample, index) {
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <div class="sample-title-wrap">
-          <span class="sample-index">Example ${String(index + 1).padStart(2, "0")}</span>
-          <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
-          <p class="sample-subtitle">${escapeHtml(sample.gt_caption)}</p>
-        </div>
-        <div class="meta-pills">
-          <span class="meta-pill">${escapeHtml(sample.vid_id)}</span>
-          <span class="meta-pill">cos sim ${formatNumber(pair.cos_sim)}</span>
-        </div>
+        <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
+        <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
+        <p class="sample-subtitle">Text: ${escapeHtml(sample.gt_caption)}</p>
       </div>
 
       <div class="sample-grid grid-3">
-        <div class="media-panel">
-          <strong>Ground Truth Video</strong>
-          <p class="media-copy">${escapeHtml(sample.gt_caption)}</p>
-          <video controls preload="metadata" playsinline src="${sample.paths.gtVideo}"></video>
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Label: ${escapeHtml(sample.label)}</span>
-              <span>Original video id: ${escapeHtml(sample.vid_id)}</span>
-            </div>
-          </div>
-        </div>
+        ${renderVideoPanel({
+          panelClass: "",
+          tag: "Anchor video",
+          title: "Ground-truth clip",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: sample.gt_caption }
+          ],
+          videoSrc: sample.paths.gtVideo
+        })}
 
-        <div class="media-panel">
-          <strong>Condition A</strong>
-          <p class="prompt-text">${escapeHtml(pair.aug_a_prompt)}</p>
-          <video controls preload="metadata" playsinline src="${sample.paths.augAVideo}"></video>
-          <audio controls preload="metadata" src="${sample.paths.refA}"></audio>
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Ref key: ${escapeHtml(sample.ref_a.db_key)}</span>
-              <span>Retriever score: ${formatNumber(sample.ref_a.score)}</span>
-              <span>Prompt type: ${escapeHtml(pair.ptype_a)} / ${escapeHtml(pair.seed_a)}</span>
-            </div>
-          </div>
-        </div>
+        ${renderVideoAudioPanel({
+          panelClass: "ref-panel",
+          tag: "Reference A",
+          title: "Retrieved reference and generated result",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: pair.aug_a_prompt },
+            { label: "Retriever score", value: formatNumber(sample.ref_a.score) }
+          ],
+          videoSrc: sample.paths.augAVideo,
+          audioSrc: sample.paths.refA
+        })}
 
-        <div class="media-panel">
-          <strong>Condition B</strong>
-          <p class="prompt-text">${escapeHtml(pair.aug_b_prompt)}</p>
-          <video controls preload="metadata" playsinline src="${sample.paths.augBVideo}"></video>
-          <audio controls preload="metadata" src="${sample.paths.refB}"></audio>
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Ref key: ${escapeHtml(sample.ref_b.db_key)}</span>
-              <span>Retriever score: ${formatNumber(sample.ref_b.score)}</span>
-              <span>Prompt type: ${escapeHtml(pair.ptype_b)} / ${escapeHtml(pair.seed_b)}</span>
-            </div>
-          </div>
-        </div>
+        ${renderVideoAudioPanel({
+          panelClass: "ref-panel",
+          tag: "Reference B",
+          title: "Retrieved reference and generated result",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: pair.aug_b_prompt },
+            { label: "Retriever score", value: formatNumber(sample.ref_b.score) }
+          ],
+          videoSrc: sample.paths.augBVideo,
+          audioSrc: sample.paths.refB
+        })}
       </div>
     </section>
   `;
@@ -291,56 +220,53 @@ function renderV2ASample(sample, index) {
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <div class="sample-title-wrap">
-          <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
-          <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
-          <p class="sample-subtitle">${escapeHtml(sample.id)}</p>
-        </div>
-        <div class="meta-pills">
-          <span class="meta-pill">${sample.n_refs_in_json} refs in JSON</span>
-          <span class="meta-pill">mid rank ${sample.ref_mid.rank + 1}</span>
-          <span class="meta-pill">mid score ${formatNumber(sample.ref_mid.score)}</span>
-        </div>
+        <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
+        <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
       </div>
 
       <div class="sample-grid grid-4">
-        <div class="media-panel">
-          <strong>Mid Reference Audio</strong>
-          <p class="media-copy">${escapeHtml(sample.ref_mid.id)}</p>
-          ${renderAudioOrMissing(sample.available.refMid, sample.paths.refMid, "Shared folder does not include this reference audio file.")}
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Rank: ${sample.ref_mid.rank + 1}</span>
-              <span>Score: ${formatNumber(sample.ref_mid.score)}</span>
-              ${sample.ref_mid.note ? `<span>Note: ${escapeHtml(sample.ref_mid.note)}</span>` : ""}
-            </div>
-          </div>
-        </div>
+        ${renderAudioPanel({
+          panelClass: "ref-panel v2a-panel",
+          tag: "Reference",
+          title: "Mid-sim retrieval reference",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
+          ],
+          audioSrc: sample.paths.refMid,
+          isAvailable: sample.available.refMid
+        })}
 
-        <div class="media-panel">
-          <strong>Generated Video from Mid Ref</strong>
-          <p class="media-copy">${escapeHtml(titleCase(sample.label))}</p>
-          <video controls preload="metadata" playsinline src="${sample.paths.genMid}"></video>
-          <p class="media-subcopy">Conditioned by the mid-ranked retrieved reference.</p>
-        </div>
+        ${renderVideoPanel({
+          panelClass: "gen-panel v2a-panel",
+          tag: "Generation",
+          title: "Mid-conditioned video",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) }
+          ],
+          videoSrc: sample.paths.genMid
+        })}
 
-        <div class="media-panel">
-          <strong>Random-Class Reference Audio</strong>
-          <p class="media-copy">${escapeHtml(sample.ref_random_class.id)}</p>
-          ${renderAudioOrMissing(sample.available.refRandom, sample.paths.refRandom, "Shared folder does not include this reference audio file.")}
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Reference label: ${escapeHtml(sample.ref_random_class.label)}</span>
-            </div>
-          </div>
-        </div>
+        ${renderAudioPanel({
+          panelClass: "ref-panel v2a-panel",
+          tag: "Reference",
+          title: "Random same-class reference",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) }
+          ],
+          audioSrc: sample.paths.refRandom,
+          isAvailable: sample.available.refRandom
+        })}
 
-        <div class="media-panel">
-          <strong>Generated Video from Random Ref</strong>
-          <p class="media-copy">${escapeHtml(titleCase(sample.label))}</p>
-          <video controls preload="metadata" playsinline src="${sample.paths.genRandom}"></video>
-          <p class="media-subcopy">Conditioned by a same-class random reference.</p>
-        </div>
+        ${renderVideoPanel({
+          panelClass: "gen-panel v2a-panel",
+          tag: "Generation",
+          title: "Random-conditioned video",
+          rows: [
+            { label: "Label", value: titleCase(sample.label) }
+          ],
+          videoSrc: sample.paths.genRandom
+        })}
       </div>
     </section>
   `;
@@ -350,61 +276,126 @@ function renderT2ASample(sample, index) {
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <div class="sample-title-wrap">
-          <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
-          <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
-          <p class="sample-subtitle">${escapeHtml(sample.id)}</p>
+        <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
+        <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
+      </div>
+
+      <div class="audio-group">
+        <div class="audio-group-head">
+          <h3>Reference Audio</h3>
+          <p>Inputs provided to the model.</p>
         </div>
-        <div class="meta-pills">
-          <span class="meta-pill">${sample.n_refs_in_json} refs in JSON</span>
-          <span class="meta-pill">mid score ${formatNumber(sample.ref_mid.score)}</span>
+        <div class="sample-grid grid-2">
+          ${renderAudioPanel({
+            panelClass: "ref-panel",
+            tag: "Reference",
+            title: "Mid-sim retrieval reference",
+            rows: [
+              { label: "Label", value: titleCase(sample.label) },
+              { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
+            ],
+            audioSrc: sample.paths.refMid,
+            isAvailable: true
+          })}
+
+          ${renderAudioPanel({
+            panelClass: "ref-panel",
+            tag: "Reference",
+            title: "Random same-class reference",
+            rows: [
+              { label: "Label", value: titleCase(sample.label) }
+            ],
+            audioSrc: sample.paths.refRandom,
+            isAvailable: true
+          })}
         </div>
       </div>
 
-      <div class="sample-grid grid-5">
-        <div class="media-panel">
-          <strong>Mid Reference Audio</strong>
-          <p class="media-copy">${escapeHtml(sample.ref_mid.id)}</p>
-          <audio controls preload="metadata" src="${sample.paths.refMid}"></audio>
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Rank: ${sample.ref_mid.rank + 1}</span>
-              <span>Score: ${formatNumber(sample.ref_mid.score)}</span>
-              ${sample.ref_mid.note ? `<span>Note: ${escapeHtml(sample.ref_mid.note)}</span>` : ""}
-            </div>
-          </div>
+      <div class="audio-group">
+        <div class="audio-group-head">
+          <h3>Generated Audio</h3>
+          <p>Outputs for the same label under different conditioning modes.</p>
         </div>
+        <div class="sample-grid grid-3-wide">
+          ${renderAudioPanel({
+            panelClass: "gen-panel",
+            tag: "Generation",
+            title: "Mid-conditioned generation",
+            rows: [
+              { label: "Label", value: titleCase(sample.label) }
+            ],
+            audioSrc: sample.paths.genMid,
+            isAvailable: true
+          })}
 
-        <div class="media-panel">
-          <strong>Generated Audio from Mid Ref</strong>
-          <p class="media-copy">${escapeHtml(titleCase(sample.label))}</p>
-          <audio controls preload="metadata" src="${sample.paths.genMid}"></audio>
-        </div>
+          ${renderAudioPanel({
+            panelClass: "gen-panel",
+            tag: "Generation",
+            title: "Random-conditioned generation",
+            rows: [
+              { label: "Label", value: titleCase(sample.label) }
+            ],
+            audioSrc: sample.paths.genRandom,
+            isAvailable: true
+          })}
 
-        <div class="media-panel">
-          <strong>Random-Class Reference Audio</strong>
-          <p class="media-copy">${escapeHtml(sample.ref_random_class.id)}</p>
-          <audio controls preload="metadata" src="${sample.paths.refRandom}"></audio>
-          <div class="caption-block">
-            <div class="detail-list">
-              <span>Reference label: ${escapeHtml(sample.ref_random_class.label)}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="media-panel">
-          <strong>Generated Audio from Random Ref</strong>
-          <p class="media-copy">${escapeHtml(titleCase(sample.label))}</p>
-          <audio controls preload="metadata" src="${sample.paths.genRandom}"></audio>
-        </div>
-
-        <div class="media-panel">
-          <strong>Generated Audio without Ref</strong>
-          <p class="media-copy">${escapeHtml(titleCase(sample.label))}</p>
-          <audio controls preload="metadata" src="${sample.paths.genNoRef}"></audio>
+          ${renderAudioPanel({
+            panelClass: "gen-panel",
+            tag: "Generation",
+            title: "No-reference generation",
+            rows: [
+              { label: "Label", value: titleCase(sample.label) }
+            ],
+            audioSrc: sample.paths.genNoRef,
+            isAvailable: true
+          })}
         </div>
       </div>
     </section>
+  `;
+}
+
+function renderVideoPanel({ panelClass, tag, title, rows, videoSrc }) {
+  return `
+    <div class="media-panel ${panelClass}">
+      <span class="panel-tag">${escapeHtml(tag)}</span>
+      <strong>${escapeHtml(title)}</strong>
+      ${renderMetaList(rows)}
+      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+    </div>
+  `;
+}
+
+function renderAudioPanel({ panelClass, tag, title, rows, audioSrc, isAvailable }) {
+  return `
+    <div class="media-panel ${panelClass}">
+      <span class="panel-tag">${escapeHtml(tag)}</span>
+      <strong>${escapeHtml(title)}</strong>
+      ${renderMetaList(rows)}
+      ${renderAudioOrMissing(isAvailable, audioSrc, "Reference audio is not included in the shared folder.")}
+    </div>
+  `;
+}
+
+function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSrc }) {
+  return `
+    <div class="media-panel ${panelClass}">
+      <span class="panel-tag">${escapeHtml(tag)}</span>
+      <strong>${escapeHtml(title)}</strong>
+      ${renderMetaList(rows)}
+      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+      <audio controls preload="metadata" src="${audioSrc}"></audio>
+    </div>
+  `;
+}
+
+function renderMetaList(rows) {
+  return `
+    <div class="meta-list">
+      ${rows.map((row) => `
+        <div class="meta-row"><span>${escapeHtml(row.label)}:</span> ${escapeHtml(row.value)}</div>
+      `).join("")}
+    </div>
   `;
 }
 
@@ -421,12 +412,6 @@ async function fetchJson(path) {
     throw new Error(`${path} returned ${response.status}`);
   }
   return response.json();
-}
-
-function optionLabel(sample, index) {
-  const token = sample.exampleId || sample.id || String(index + 1);
-  const label = sample.label ? titleCase(sample.label) : token;
-  return `${String(index + 1).padStart(2, "0")} - ${label}`;
 }
 
 function formatNumber(value) {

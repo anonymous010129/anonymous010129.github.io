@@ -3,42 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VGGSound-ConRet Dataset Check</title>
+  <title>ConRet Web Demo</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="piano">
-  <div class="app-shell">
+<body class="landing-page">
+  <div class="site-shell">
     <header class="site-header">
-      <div class="header-row">
-        <div>
-          <a class="brand-link" href="index.html">Anonymous Audio Demo</a>
-          <p class="page-kicker" id="page-kicker"></p>
-        </div>
-        <nav class="site-nav" aria-label="Demo pages">
-          <a data-nav="piano" href="index.html">Dataset Check</a>
-          <a data-nav="v2a" href="v2a.html">V2A Check</a>
-          <a data-nav="t2a" href="t2a.html">T2A Check</a>
+      <div class="site-header-inner">
+        <a class="brand-link" href="index.html">ConRet Anonymous Demo</a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a class="is-active" href="index.html">Main</a>
+          <a href="page1.html">Page 1</a>
+          <a href="page2.html">Page 2</a>
+          <a href="page3.html">Page 3</a>
         </nav>
       </div>
-
-      <div class="page-intro">
-        <div class="intro-copy">
-          <h1 id="page-title"></h1>
-          <p id="page-description"></p>
-        </div>
-        <div class="summary-strip" id="summary-strip"></div>
-      </div>
-
-      <div class="toolbar" id="toolbar"></div>
     </header>
 
-    <main class="page-main">
-      <div class="sample-list" id="content">
-        <div class="state-message">Loading shared samples...</div>
-      </div>
+    <main class="landing-main">
+      <section class="landing-hero">
+        <p class="page-kicker">Anonymous Submission</p>
+        <h1>ConRet Web Demo</h1>
+        <p class="hero-copy">
+          Retrieval-augmented audio-conditioned generation for both video-to-audio and text-to-audio.
+          This site packages the shared peer-review subset currently included in the repository.
+        </p>
+      </section>
+
+      <section class="notice-band">
+        <strong>Shared review subset.</strong>
+        <span>5 dataset-check examples, 10 V2A samples, and 5 T2A samples are available for direct listening on the web.</span>
+      </section>
+
+      <section class="landing-grid">
+        <article class="info-panel">
+          <h2>Overview</h2>
+          <p>
+            ConRet is a retrieval-augmented audio-conditioned generator on both modalities, and the first
+            audio-conditioned model on the text-to-audio side. Earlier AC-V2A systems train with a slice of
+            the ground-truth audio itself as the reference, which creates a train-test gap. ConRet replaces
+            self-reference with retrieval-sampled references and adds a multi-way contrastive forward so the
+            model must produce distinguishable outputs when only the reference changes.
+          </p>
+        </article>
+
+        <article class="info-panel">
+          <h2>Training Data</h2>
+          <p>
+            Around 2M LLM-augmented audios from 182,614 VGGSound clips times 11 source/context prompt variants,
+            curated into 700K Stage 1 pairs and 71K Stage 2 contrastive pairs.
+          </p>
+        </article>
+      </section>
+
+      <section class="results-section">
+        <div class="section-head">
+          <h2>Key Results</h2>
+          <p>Numbers below follow the shared draft summary used for the peer-review demo.</p>
+        </div>
+
+        <div class="results-grid">
+          <article class="result-panel">
+            <h3>T2A</h3>
+            <p class="section-note">Compared with TangoFlux 8B base on Clotho, MeCAT, and VGGSound.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Clotho</th>
+                    <th>MeCAT</th>
+                    <th>VGGSound</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Resemblyzer</td>
+                    <td>+11.1%</td>
+                    <td>+11.8%</td>
+                    <td>+7.8%</td>
+                  </tr>
+                  <tr>
+                    <td>MCD</td>
+                    <td>down 3%</td>
+                    <td>down 9%</td>
+                    <td>down 9%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="result-panel">
+            <h3>V2A</h3>
+            <p class="section-note">VGGSound test split, 15,341 clips.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Resemblyzer</th>
+                    <th>MCD</th>
+                    <th>s / sample</th>
+                    <th>GPU mem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AC-Foley</td>
+                    <td>0.722</td>
+                    <td>554.1</td>
+                    <td>1.57</td>
+                    <td>10.3 GB</td>
+                  </tr>
+                  <tr>
+                    <td>ControlFoley</td>
+                    <td>0.728</td>
+                    <td>550.0</td>
+                    <td>5.08</td>
+                    <td>51.5 +/- 1.9 GB</td>
+                  </tr>
+                  <tr>
+                    <td><strong>ConRet-V2A</strong></td>
+                    <td><strong>0.739</strong></td>
+                    <td><strong>542.0</strong></td>
+                    <td><strong>1.17</strong></td>
+                    <td><strong>13.7 GB</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="pages-section">
+        <div class="section-head">
+          <h2>Review Pages</h2>
+          <p>Open the pages below to listen to the shared samples directly in the browser.</p>
+        </div>
+
+        <div class="page-card-grid">
+          <article class="page-card">
+            <span class="panel-tag">Page 1</span>
+            <h3>VGGSound-ConRet Dataset Check</h3>
+            <p>
+              Samples from the augmentation corpus. Each anchor video is paired with LLM-prompted audio variants.
+              Listen for acoustically distinct yet semantically related variants.
+            </p>
+            <a class="demo-link" href="page1.html">Open Page 1</a>
+          </article>
+
+          <article class="page-card">
+            <span class="panel-tag">Page 2</span>
+            <h3>Audio Conditioned V2A Generation Quality Check</h3>
+            <p>
+              Shared V2A subset with mid-sim retrieval references and random same-class references.
+              Compare how the generated result changes when the reference changes.
+            </p>
+            <a class="demo-link" href="page2.html">Open Page 2</a>
+          </article>
+
+          <article class="page-card">
+            <span class="panel-tag">Page 3</span>
+            <h3>Audio Conditioned T2A Generation Quality Check</h3>
+            <p>
+              Shared T2A subset with no-reference, mid-reference, and random-reference generation modes.
+              Compare reference audios against the generated outputs for the same label.
+            </p>
+            <a class="demo-link" href="page3.html">Open Page 3</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="footnote-section">
+        <p>
+          Anonymous submission. All audio and video samples on this site come from the shared review package.
+          The release plan in the draft includes the augmentation corpus, contrastive pair pools, retrieval pool,
+          and adapter weights after acceptance.
+        </p>
+      </section>
     </main>
   </div>
-
-  <script type="module" src="app.js"></script>
 </body>
 </html>
