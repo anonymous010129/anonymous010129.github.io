@@ -221,70 +221,45 @@ function renderPianoSample(sample, index) {
 }
 
 function renderV2ASample(sample, index) {
+  const sampleNumber = String(index + 1).padStart(2, "0");
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
-        <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
-        <p class="sample-subtitle">Text: ${escapeHtml(sample.promptText)}</p>
+        <span class="sample-index">Sample ${sampleNumber}</span>
+        <h2 class="sample-title">Sample ${sampleNumber}</h2>
       </div>
 
       <div class="sample-scroll">
-        <div class="v2a-matrix-head">
+        <div class="v2a-compare">
+          <div class="v2a-head-spacer"></div>
           <div class="matrix-head-cell">Reference</div>
           <div class="matrix-head-cell">ConRet</div>
           <div class="matrix-head-cell">AC-Foley</div>
           <div class="matrix-head-cell">ControlFoley</div>
-        </div>
 
-        <div class="sample-grid grid-4">
           ${renderV2ARow({
-          rowLabel: "Reference GT",
-          refTitle: "Ground-truth reference audio",
-          refRows: [
-            { label: "Label", value: titleCase(sample.label) },
-            { label: "Text", value: "Ground-truth reference audio" },
-            { label: "Retriever score", value: "-" }
-          ],
-          refAudioSrc: sample.paths.refGt,
-          conretVideoSrc: sample.paths.conretGt,
-          acfVideoSrc: sample.paths.acfGt,
-          cfVideoSrc: sample.paths.cfGt,
-          label: sample.label,
-          text: "Ground-truth reference audio"
-        })}
+            rowLabel: "Reference GT",
+            refAudioSrc: sample.paths.refGt,
+            conretVideoSrc: sample.paths.conretGt,
+            acfVideoSrc: sample.paths.acfGt,
+            cfVideoSrc: sample.paths.cfGt
+          })}
 
-        ${renderV2ARow({
-          rowLabel: "Reference Mid",
-          refTitle: "Mid-sim retrieval reference",
-          refRows: [
-            { label: "Label", value: titleCase(sample.label) },
-            { label: "Text", value: "Mid-sim retrieval reference" },
-            { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
-          ],
-          refAudioSrc: sample.paths.refMid,
-          conretVideoSrc: sample.paths.genMid,
-          acfVideoSrc: sample.paths.acfMid,
-          cfVideoSrc: sample.paths.cfMid,
-          label: sample.label,
-          text: "Mid-sim retrieval reference"
-        })}
+          ${renderV2ARow({
+            rowLabel: "Reference Mid",
+            refAudioSrc: sample.paths.refMid,
+            conretVideoSrc: sample.paths.genMid,
+            acfVideoSrc: sample.paths.acfMid,
+            cfVideoSrc: sample.paths.cfMid
+          })}
 
-        ${renderV2ARow({
-          rowLabel: "Reference Random",
-          refTitle: "Random same-class reference",
-          refRows: [
-            { label: "Label", value: titleCase(sample.label) },
-            { label: "Text", value: "Random same-class reference" },
-            { label: "Retriever score", value: "-" }
-          ],
-          refAudioSrc: sample.paths.refRandom,
-          conretVideoSrc: sample.paths.genRandom,
-          acfVideoSrc: sample.paths.acfRandom,
-          cfVideoSrc: sample.paths.cfRandom,
-          label: sample.label,
-          text: "Random same-class reference"
-        })}
+          ${renderV2ARow({
+            rowLabel: "Reference Random",
+            refAudioSrc: sample.paths.refRandom,
+            conretVideoSrc: sample.paths.genRandom,
+            acfVideoSrc: sample.paths.acfRandom,
+            cfVideoSrc: sample.paths.cfRandom
+          })}
         </div>
       </div>
     </section>
@@ -293,142 +268,116 @@ function renderV2ASample(sample, index) {
 
 function renderV2ARow({
   rowLabel,
-  refTitle,
-  refRows,
   refAudioSrc,
   conretVideoSrc,
   acfVideoSrc,
-  cfVideoSrc,
-  label,
-  text
+  cfVideoSrc
 }) {
-  const commonRows = [
-    { label: "Label", value: titleCase(label) },
-    { label: "Text", value: text }
-  ];
-
   return `
-    ${renderAudioPanel({
-      panelClass: "ref-panel v2a-panel",
-      tag: rowLabel,
-      title: refTitle,
-      rows: refRows,
-      audioSrc: refAudioSrc,
-      isAvailable: true
+    <div class="v2a-row-label">${escapeHtml(rowLabel)}</div>
+    ${renderBareAudioCell({
+      panelClass: "ref-panel v2a-panel v2a-cell",
+      audioSrc: refAudioSrc
     })}
-    ${renderVideoPanel({
-      panelClass: "gen-panel v2a-panel",
-      tag: "ConRet",
-      title: "Generated video",
-      rows: commonRows,
+    ${renderBareVideoCell({
+      panelClass: "gen-panel v2a-panel v2a-cell",
       videoSrc: conretVideoSrc
     })}
-    ${renderVideoPanel({
-      panelClass: "gen-panel v2a-panel",
-      tag: "AC-Foley",
-      title: "Generated video",
-      rows: commonRows,
+    ${renderBareVideoCell({
+      panelClass: "gen-panel v2a-panel v2a-cell",
       videoSrc: acfVideoSrc
     })}
-    ${renderVideoPanel({
-      panelClass: "gen-panel v2a-panel",
-      tag: "ControlFoley",
-      title: "Generated video",
-      rows: commonRows,
+    ${renderBareVideoCell({
+      panelClass: "gen-panel v2a-panel v2a-cell",
       videoSrc: cfVideoSrc
     })}
   `;
 }
 
 function renderT2ASample(sample, index) {
+  const sampleNumber = String(index + 1).padStart(2, "0");
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
+        <span class="sample-index">Sample ${sampleNumber}</span>
         <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
+        <p class="sample-subtitle">Prompt: ${escapeHtml(sample.promptText)}</p>
       </div>
 
-      <div class="audio-group">
-        <div class="audio-group-head">
-          <h3>Reference Audio</h3>
-          <p>Inputs provided to the model.</p>
-        </div>
-        <div class="sample-scroll">
-          <div class="sample-grid grid-2">
-            ${renderAudioPanel({
-            panelClass: "ref-panel",
-            tag: "Reference",
-            title: "Mid-sim retrieval reference",
-            rows: [
-              { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.promptText },
-              { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
-            ],
-            audioSrc: sample.paths.refMid,
-            isAvailable: true
+      <div class="sample-scroll">
+        <div class="t2a-pair-list">
+          ${renderT2APairRow({
+            pairLabel: "Mid-sim pair",
+            leftPanel: renderAudioPanel({
+              panelClass: "ref-panel",
+              tag: "Reference",
+              title: "Input reference audio",
+              rows: [
+                { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
+              ],
+              audioSrc: sample.paths.refMid,
+              isAvailable: true
+            }),
+            rightPanel: renderAudioPanel({
+              panelClass: "gen-panel",
+              tag: "Generate",
+              title: "Generated output",
+              rows: [],
+              audioSrc: sample.paths.genMid,
+              isAvailable: true
+            })
           })}
 
-          ${renderAudioPanel({
-            panelClass: "ref-panel",
-            tag: "Reference",
-            title: "Random same-class reference",
-            rows: [
-              { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.promptText }
-            ],
-            audioSrc: sample.paths.refRandom,
-            isAvailable: true
-          })}
-          </div>
-        </div>
-      </div>
-
-      <div class="audio-group">
-        <div class="audio-group-head">
-          <h3>Generated Audio</h3>
-          <p>Outputs for the same label under different conditioning modes.</p>
-        </div>
-        <div class="sample-scroll">
-          <div class="sample-grid grid-3-wide">
-            ${renderAudioPanel({
-            panelClass: "gen-panel",
-            tag: "Generation",
-            title: "Mid-conditioned generation",
-            rows: [
-              { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.promptText }
-            ],
-            audioSrc: sample.paths.genMid,
-            isAvailable: true
+          ${renderT2APairRow({
+            pairLabel: "Random pair",
+            leftPanel: renderAudioPanel({
+              panelClass: "ref-panel",
+              tag: "Reference",
+              title: "Input reference audio",
+              rows: [],
+              audioSrc: sample.paths.refRandom,
+              isAvailable: true
+            }),
+            rightPanel: renderAudioPanel({
+              panelClass: "gen-panel",
+              tag: "Generate",
+              title: "Generated output",
+              rows: [],
+              audioSrc: sample.paths.genRandom,
+              isAvailable: true
+            })
           })}
 
-          ${renderAudioPanel({
-            panelClass: "gen-panel",
-            tag: "Generation",
-            title: "Random-conditioned generation",
-            rows: [
-              { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.promptText }
-            ],
-            audioSrc: sample.paths.genRandom,
-            isAvailable: true
+          ${renderT2APairRow({
+            pairLabel: "No-ref pair",
+            leftPanel: renderInfoPanel({
+              panelClass: "ref-panel",
+              tag: "Reference",
+              title: "No reference input",
+              body: "Prompt-only generation"
+            }),
+            rightPanel: renderAudioPanel({
+              panelClass: "gen-panel",
+              tag: "Generate",
+              title: "Generated output",
+              rows: [],
+              audioSrc: sample.paths.genNoRef,
+              isAvailable: true
+            })
           })}
-
-          ${renderAudioPanel({
-            panelClass: "gen-panel",
-            tag: "Generation",
-            title: "No-reference generation",
-            rows: [
-              { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.promptText }
-            ],
-            audioSrc: sample.paths.genNoRef,
-            isAvailable: true
-          })}
-          </div>
         </div>
       </div>
     </section>
+  `;
+}
+
+function renderT2APairRow({ pairLabel, leftPanel, rightPanel }) {
+  return `
+    <div class="t2a-pair-row">
+      <div class="t2a-pair-label">${escapeHtml(pairLabel)}</div>
+      ${leftPanel}
+      ${rightPanel}
+    </div>
   `;
 }
 
@@ -454,6 +403,32 @@ function renderAudioPanel({ panelClass, tag, title, rows, audioSrc, isAvailable 
   `;
 }
 
+function renderBareAudioCell({ panelClass, audioSrc }) {
+  return `
+    <div class="media-panel bare-media-cell ${panelClass}">
+      <audio controls preload="metadata" src="${audioSrc}"></audio>
+    </div>
+  `;
+}
+
+function renderBareVideoCell({ panelClass, videoSrc }) {
+  return `
+    <div class="media-panel bare-media-cell ${panelClass}">
+      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+    </div>
+  `;
+}
+
+function renderInfoPanel({ panelClass, tag, title, body }) {
+  return `
+    <div class="media-panel ${panelClass}">
+      <span class="panel-tag">${escapeHtml(tag)}</span>
+      <strong>${escapeHtml(title)}</strong>
+      <div class="empty-media">${escapeHtml(body)}</div>
+    </div>
+  `;
+}
+
 function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSrc }) {
   return `
     <div class="media-panel ${panelClass}">
@@ -467,6 +442,10 @@ function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSr
 }
 
 function renderMetaList(rows) {
+  if (!rows || rows.length === 0) {
+    return "";
+  }
+
   return `
     <div class="meta-list">
       ${rows.map((row) => `
