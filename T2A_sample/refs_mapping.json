@@ -1,35 +1,4 @@
 {
-  "156q2w_ca1U_000030": {
-    "label": "female singing",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YNqJNplMxgfs",
-      "score": 0.848541,
-      "rank": 1,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YNqJNplMxgfs.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/0qOzozmZHYU_000030",
-      "label": "female singing",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/0qOzozmZHYU_000030.wav"
-    }
-  },
-  "1OFDyTzUj24_000030": {
-    "label": "male speech, man speaking",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_audioset/Y8EwSqlHiIAo",
-      "score": 0.863836,
-      "rank": 0,
-      "note": "fallback top-1",
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/Y8EwSqlHiIAo.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/5EW4tgQCOjk_000002",
-      "label": "male speech, man speaking",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/5EW4tgQCOjk_000002.wav"
-    }
-  },
   "1WGfcIOLUK8_000030": {
     "label": "dog barking",
     "n_refs_in_json": 9,
@@ -43,21 +12,6 @@
       "id": "vggsound_train/TniApw9LVzM_000030",
       "label": "dog barking",
       "src": "/home/sogang_nlpy/vggsound/audio_wav/TniApw9LVzM_000030.wav"
-    }
-  },
-  "5iL201ao6fI_000044": {
-    "label": "playing table tennis",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YyugWEz6jFXA",
-      "score": 0.829422,
-      "rank": 5,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YyugWEz6jFXA.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/_2psHEv3EkQ_000003",
-      "label": "playing table tennis",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/_2psHEv3EkQ_000003.wav"
     }
   },
   "6I9BFjKBjLY_000037": {
@@ -76,37 +30,6 @@
       "src": "/home/sogang_nlpy/vggsound/audio_wav/4l1Wz4faxkc_000031.wav"
     }
   },
-  "6zTszR6wgys_000200": {
-    "label": "railroad car, train wagon",
-    "n_refs_in_json": 8,
-    "ref_mid": {
-      "id": "audiocaps/U1eIg08XUfY_160",
-      "score": 0.935289,
-      "rank": 0,
-      "note": "fallback top-1",
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/audiocaps/U1eIg08XUfY_160.wav"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/KqE1pIoQeu8_000030",
-      "label": "railroad car, train wagon",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/KqE1pIoQeu8_000030.wav"
-    }
-  },
-  "7l_TPfOhh5c_000570": {
-    "label": "chicken crowing",
-    "n_refs_in_json": 3,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YuIjQymI1oRQ",
-      "score": 0.944785,
-      "rank": 1,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YuIjQymI1oRQ.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/CbBVBaDjedg_000055",
-      "label": "chicken crowing",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/CbBVBaDjedg_000055.wav"
-    }
-  },
   "AfyG5j2p39g_000010": {
     "label": "playing lacrosse",
     "n_refs_in_json": 7,
@@ -120,22 +43,6 @@
       "id": "vggsound_train/8MLj7fZgWpA_000269",
       "label": "playing lacrosse",
       "src": "/home/sogang_nlpy/vggsound/audio_wav/8MLj7fZgWpA_000269.wav"
-    }
-  },
-  "KDE80kI1Kf0_000040": {
-    "label": "owl hooting",
-    "n_refs_in_json": 6,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YucU_-j6QOTg",
-      "score": 0.811662,
-      "rank": 0,
-      "note": "fallback top-1",
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YucU_-j6QOTg.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/7XR5mBARCio_000001",
-      "label": "owl hooting",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/7XR5mBARCio_000001.wav"
     }
   },
   "Kqw--nmhaRw_000931": {
@@ -153,97 +60,6 @@
       "src": "/home/sogang_nlpy/vggsound/audio_wav/oe_cZR1c94I_000083.wav"
     }
   },
-  "M5MnBiYMZ9k_000030": {
-    "label": "people shuffling",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_audioset/Ya6cXkS-fk-0",
-      "score": 0.819713,
-      "rank": 6,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/Ya6cXkS-fk-0.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/otp3r8SfygA_000063",
-      "label": "people shuffling",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/otp3r8SfygA_000063.wav"
-    }
-  },
-  "Msl9dI5yweA_000000": {
-    "label": "playing marimba, xylophone",
-    "n_refs_in_json": 3,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YxOsipCFp13I",
-      "score": 0.825281,
-      "rank": 0,
-      "note": "fallback top-1",
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YxOsipCFp13I.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/FAUf2btHHbs_000310",
-      "label": "playing marimba, xylophone",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/FAUf2btHHbs_000310.wav"
-    }
-  },
-  "P90rFZQFqWk_000030": {
-    "label": "playing electric guitar",
-    "n_refs_in_json": 9,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YmQKbrOZIIb8",
-      "score": 0.867306,
-      "rank": 6,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YmQKbrOZIIb8.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/-ZMFcjRLFeQ_000030",
-      "label": "playing electric guitar",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/-ZMFcjRLFeQ_000030.wav"
-    }
-  },
-  "aDTCjyFFbkA_000142": {
-    "label": "playing volleyball",
-    "n_refs_in_json": 7,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YjVttbOOrYxs",
-      "score": 0.782755,
-      "rank": 3,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YjVttbOOrYxs.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/8mhFuAM5D_Q_000045",
-      "label": "playing volleyball",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/8mhFuAM5D_Q_000045.wav"
-    }
-  },
-  "h8fMUaesCrA_000168": {
-    "label": "playing trombone",
-    "n_refs_in_json": 3,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YzE7rGa--7dk",
-      "score": 0.886984,
-      "rank": 2,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YzE7rGa--7dk.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/3dqIT7amUpI_000060",
-      "label": "playing trombone",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/3dqIT7amUpI_000060.wav"
-    }
-  },
-  "kf0YrFpuNKQ_000030": {
-    "label": "machine gun shooting",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "audiocaps/e_xixYeRH38_30",
-      "score": 0.907888,
-      "rank": 1,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/audiocaps/e_xixYeRH38_30.wav"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/yUZMpGwS-OI_000230",
-      "label": "machine gun shooting",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/yUZMpGwS-OI_000230.wav"
-    }
-  },
   "ocsV6Tit_9E_000200": {
     "label": "volcano explosion",
     "n_refs_in_json": 2,
@@ -258,51 +74,6 @@
       "id": "vggsound_train/X1knKavWG98_000483",
       "label": "volcano explosion",
       "src": "/home/sogang_nlpy/vggsound/audio_wav/X1knKavWG98_000483.wav"
-    }
-  },
-  "q-mib8XkZDo_000338": {
-    "label": "airplane",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_audioset/Y1d_L3YA1KuM",
-      "score": 0.794176,
-      "rank": 6,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/Y1d_L3YA1KuM.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/qHIP_chEiQk_000375",
-      "label": "airplane",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/qHIP_chEiQk_000375.wav"
-    }
-  },
-  "uKlJCWLaPvg_000080": {
-    "label": "playing accordion",
-    "n_refs_in_json": 3,
-    "ref_mid": {
-      "id": "wavcaps_audioset/YrcGiuhMH484",
-      "score": 0.843491,
-      "rank": 1,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_audioset/YrcGiuhMH484.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/UVVlDBD08Go_000028",
-      "label": "playing accordion",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/UVVlDBD08Go_000028.wav"
-    }
-  },
-  "zd3SKCVbaWg_000001": {
-    "label": "people eating crisps",
-    "n_refs_in_json": 10,
-    "ref_mid": {
-      "id": "wavcaps_freesound/345567_seg0",
-      "score": 0.789306,
-      "rank": 8,
-      "src": "/NHNHOME/WORKSPACE/MMAR01/ref_audio_sources_FULL/wavcaps_freesound/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/345567_seg0.flac"
-    },
-    "ref_random_class": {
-      "id": "vggsound_train/6JTA0Kn9_vg_000454",
-      "label": "people eating crisps",
-      "src": "/home/sogang_nlpy/vggsound/audio_wav/6JTA0Kn9_vg_000454.wav"
     }
   }
 }
