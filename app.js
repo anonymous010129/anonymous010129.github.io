@@ -225,7 +225,6 @@ function renderV2ASample(sample, index) {
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
-        <span class="sample-index">Sample ${sampleNumber}</span>
         <h2 class="sample-title">Sample ${sampleNumber}</h2>
       </div>
 
@@ -233,7 +232,7 @@ function renderV2ASample(sample, index) {
         <div class="v2a-compare">
           <div class="v2a-head-spacer"></div>
           <div class="matrix-head-cell">Reference</div>
-          <div class="matrix-head-cell">ConRet</div>
+          <div class="matrix-head-cell">ConRet (Ours)</div>
           <div class="matrix-head-cell">AC-Foley</div>
           <div class="matrix-head-cell">ControlFoley</div>
 
@@ -320,7 +319,7 @@ function renderT2ASample(sample, index) {
             }),
             rightPanel: renderAudioPanel({
               panelClass: "gen-panel",
-              tag: "Generate",
+              tag: "ConRet (Ours)",
               title: "Generated output",
               rows: [],
               audioSrc: sample.paths.genMid,
@@ -334,13 +333,15 @@ function renderT2ASample(sample, index) {
               panelClass: "ref-panel",
               tag: "Reference",
               title: "Input reference audio",
-              rows: [],
+              rows: [
+                { label: "Retriever score", value: randomPairScore(sample) }
+              ],
               audioSrc: sample.paths.refRandom,
               isAvailable: true
             }),
             rightPanel: renderAudioPanel({
               panelClass: "gen-panel",
-              tag: "Generate",
+              tag: "ConRet (Ours)",
               title: "Generated output",
               rows: [],
               audioSrc: sample.paths.genRandom,
@@ -358,7 +359,7 @@ function renderT2ASample(sample, index) {
             }),
             rightPanel: renderAudioPanel({
               panelClass: "gen-panel",
-              tag: "Generate",
+              tag: "ConRet (Ours)",
               title: "Generated output",
               rows: [],
               audioSrc: sample.paths.genNoRef,
@@ -427,6 +428,13 @@ function renderInfoPanel({ panelClass, tag, title, body }) {
       <div class="empty-media">${escapeHtml(body)}</div>
     </div>
   `;
+}
+
+function randomPairScore(sample) {
+  if (sample?.ref_random_class?.score !== undefined && sample?.ref_random_class?.score !== null) {
+    return formatNumber(sample.ref_random_class.score);
+  }
+  return "N/A (random same-class)";
 }
 
 function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSrc }) {
