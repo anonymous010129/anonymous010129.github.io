@@ -279,6 +279,24 @@ th {
   gap: 12px;
 }
 
+.v2a-matrix-head {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.matrix-head-cell {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .grid-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -348,7 +366,7 @@ th {
 }
 
 .v2a-panel video {
-  max-height: 172px;
+  max-height: 148px;
 }
 
 .audio-group {
@@ -396,6 +414,10 @@ th {
 @media (max-width: 1220px) {
   .grid-4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .v2a-matrix-head {
+    display: none;
   }
 }
 

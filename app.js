@@ -21,13 +21,6 @@ const T2A_SAMPLE_ORDER = [
   "ocsV6Tit_9E_000200"
 ];
 
-const V2A_MISSING_REFERENCE_AUDIO = {
-  zd3SKCVbaWg_000001: {
-    refMid: true,
-    refRandom: true
-  }
-};
-
 const PAGE_CONFIG = {
   piano: {
     kicker: "Page 1",
@@ -39,7 +32,7 @@ const PAGE_CONFIG = {
   v2a: {
     kicker: "Page 2",
     title: "Audio Conditioned V2A Generation Quality Check",
-    description: "Shared V2A subset with mid-sim retrieval references and random same-class references. Compare how the generated result changes when only the reference changes.",
+    description: "Shared V2A subset arranged for direct baseline comparison. Each sample is shown with three reference conditions and outputs from ConRet, AC-Foley, and ControlFoley.",
     load: loadV2ASamples,
     render: renderV2ASample
   },
@@ -124,19 +117,22 @@ async function loadV2ASamples() {
       throw new Error(`Missing V2A mapping for ${id}`);
     }
 
-    const missingAudio = V2A_MISSING_REFERENCE_AUDIO[id] || {};
     return {
       ...sample,
       anchor: `sample-${id}`,
-      available: {
-        refMid: !missingAudio.refMid,
-        refRandom: !missingAudio.refRandom
-      },
       paths: {
+        refGt: `V2A_sample/ref_gt/${id}.wav`,
         refMid: `V2A_sample/ref_mid/${id}.wav`,
         refRandom: `V2A_sample/ref_random/${id}.wav`,
+        conretGt: `V2A_sample/gen_by_ref_gt/${id}.mp4`,
         genMid: `V2A_sample/gen_by_ref_mid/${id}.mp4`,
-        genRandom: `V2A_sample/gen_by_ref_random/${id}.mp4`
+        genRandom: `V2A_sample/gen_by_ref_random/${id}.mp4`,
+        acfGt: `V2A_sample/acf_gen_by_ref_gt/${id}.mp4`,
+        acfMid: `V2A_sample/acf_gen_by_ref_mid/${id}.mp4`,
+        acfRandom: `V2A_sample/acf_gen_by_ref_random/${id}.mp4`,
+        cfGt: `V2A_sample/cf_gen_by_ref_gt/${id}.mp4`,
+        cfMid: `V2A_sample/cf_gen_by_ref_mid/${id}.mp4`,
+        cfRandom: `V2A_sample/cf_gen_by_ref_random/${id}.mp4`
       }
     };
   });
@@ -224,51 +220,112 @@ function renderV2ASample(sample, index) {
         <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
       </div>
 
+      <div class="v2a-matrix-head">
+        <div class="matrix-head-cell">Reference</div>
+        <div class="matrix-head-cell">ConRet</div>
+        <div class="matrix-head-cell">AC-Foley</div>
+        <div class="matrix-head-cell">ControlFoley</div>
+      </div>
+
       <div class="sample-grid grid-4">
-        ${renderAudioPanel({
-          panelClass: "ref-panel v2a-panel",
-          tag: "Reference",
-          title: "Mid-sim retrieval reference",
-          rows: [
+        ${renderV2ARow({
+          rowLabel: "Reference GT",
+          refTitle: "Ground-truth reference audio",
+          refRows: [
             { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: "Ground-truth reference audio" },
+            { label: "Retriever score", value: "-" }
+          ],
+          refAudioSrc: sample.paths.refGt,
+          conretVideoSrc: sample.paths.conretGt,
+          acfVideoSrc: sample.paths.acfGt,
+          cfVideoSrc: sample.paths.cfGt,
+          label: sample.label,
+          text: "Ground-truth reference audio"
+        })}
+
+        ${renderV2ARow({
+          rowLabel: "Reference Mid",
+          refTitle: "Mid-sim retrieval reference",
+          refRows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: "Mid-sim retrieval reference" },
             { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
           ],
-          audioSrc: sample.paths.refMid,
-          isAvailable: sample.available.refMid
+          refAudioSrc: sample.paths.refMid,
+          conretVideoSrc: sample.paths.genMid,
+          acfVideoSrc: sample.paths.acfMid,
+          cfVideoSrc: sample.paths.cfMid,
+          label: sample.label,
+          text: "Mid-sim retrieval reference"
         })}
 
-        ${renderVideoPanel({
-          panelClass: "gen-panel v2a-panel",
-          tag: "Generation",
-          title: "Mid-conditioned video",
-          rows: [
-            { label: "Label", value: titleCase(sample.label) }
+        ${renderV2ARow({
+          rowLabel: "Reference Random",
+          refTitle: "Random same-class reference",
+          refRows: [
+            { label: "Label", value: titleCase(sample.label) },
+            { label: "Text", value: "Random same-class reference" },
+            { label: "Retriever score", value: "-" }
           ],
-          videoSrc: sample.paths.genMid
-        })}
-
-        ${renderAudioPanel({
-          panelClass: "ref-panel v2a-panel",
-          tag: "Reference",
-          title: "Random same-class reference",
-          rows: [
-            { label: "Label", value: titleCase(sample.label) }
-          ],
-          audioSrc: sample.paths.refRandom,
-          isAvailable: sample.available.refRandom
-        })}
-
-        ${renderVideoPanel({
-          panelClass: "gen-panel v2a-panel",
-          tag: "Generation",
-          title: "Random-conditioned video",
-          rows: [
-            { label: "Label", value: titleCase(sample.label) }
-          ],
-          videoSrc: sample.paths.genRandom
+          refAudioSrc: sample.paths.refRandom,
+          conretVideoSrc: sample.paths.genRandom,
+          acfVideoSrc: sample.paths.acfRandom,
+          cfVideoSrc: sample.paths.cfRandom,
+          label: sample.label,
+          text: "Random same-class reference"
         })}
       </div>
     </section>
+  `;
+}
+
+function renderV2ARow({
+  rowLabel,
+  refTitle,
+  refRows,
+  refAudioSrc,
+  conretVideoSrc,
+  acfVideoSrc,
+  cfVideoSrc,
+  label,
+  text
+}) {
+  const commonRows = [
+    { label: "Label", value: titleCase(label) },
+    { label: "Text", value: text }
+  ];
+
+  return `
+    ${renderAudioPanel({
+      panelClass: "ref-panel v2a-panel",
+      tag: rowLabel,
+      title: refTitle,
+      rows: refRows,
+      audioSrc: refAudioSrc,
+      isAvailable: true
+    })}
+    ${renderVideoPanel({
+      panelClass: "gen-panel v2a-panel",
+      tag: "ConRet",
+      title: "Generated video",
+      rows: commonRows,
+      videoSrc: conretVideoSrc
+    })}
+    ${renderVideoPanel({
+      panelClass: "gen-panel v2a-panel",
+      tag: "AC-Foley",
+      title: "Generated video",
+      rows: commonRows,
+      videoSrc: acfVideoSrc
+    })}
+    ${renderVideoPanel({
+      panelClass: "gen-panel v2a-panel",
+      tag: "ControlFoley",
+      title: "Generated video",
+      rows: commonRows,
+      videoSrc: cfVideoSrc
+    })}
   `;
 }
 
