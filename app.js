@@ -9,8 +9,7 @@ const V2A_SAMPLE_ORDER = [
   "KDE80kI1Kf0_000040",
   "kf0YrFpuNKQ_000030",
   "Kqw--nmhaRw_000931",
-  "ocsV6Tit_9E_000200",
-  "zd3SKCVbaWg_000001"
+  "ocsV6Tit_9E_000200"
 ];
 
 const T2A_SAMPLE_ORDER = [
@@ -25,21 +24,21 @@ const PAGE_CONFIG = {
   piano: {
     kicker: "Page 1",
     title: "VGGSound-ConRet Dataset Check",
-    description: "Samples from the augmentation corpus. Each anchor video is paired with retrieved reference audio and generated variants so the conditioning signal can be checked directly.",
+    description: "This page is a quick sanity check for the augmented dataset. Each anchor clip is shown alongside the retrieved reference audio and the corresponding generated variant so the conditioning setup is easy to verify at a glance.",
     load: loadPianoSamples,
     render: renderPianoSample
   },
   v2a: {
     kicker: "Page 2",
     title: "Audio Conditioned V2A Generation Quality Check",
-    description: "Shared V2A subset arranged for direct baseline comparison. Each sample is shown with three reference conditions and outputs from ConRet, AC-Foley, and ControlFoley.",
+    description: "This page compares ConRet (Ours) against AC-Foley and ControlFoley under the same three reference conditions. For each sample, you can listen to the reference audio first and then compare how the three systems respond to it.",
     load: loadV2ASamples,
     render: renderV2ASample
   },
   t2a: {
     kicker: "Page 3",
     title: "Audio Conditioned T2A Generation Quality Check",
-    description: "Shared T2A subset with no-reference, mid-reference, and random-reference generation modes. Reference inputs and generated outputs are separated below for easier listening.",
+    description: "This page focuses on how the generated audio changes under different conditioning modes. Each sample shares one prompt, then pairs each reference input directly with the matching ConRet (Ours) output for easier listening.",
     load: loadT2ASamples,
     render: renderT2ASample
   }
@@ -407,7 +406,7 @@ function renderAudioPanel({ panelClass, tag, title, rows, audioSrc, isAvailable 
 function renderBareAudioCell({ panelClass, audioSrc }) {
   return `
     <div class="media-panel bare-media-cell ${panelClass}">
-      <audio controls preload="metadata" src="${audioSrc}"></audio>
+      ${renderAudioElement(audioSrc)}
     </div>
   `;
 }
@@ -434,7 +433,7 @@ function randomPairScore(sample) {
   if (sample?.ref_random_class?.score !== undefined && sample?.ref_random_class?.score !== null) {
     return formatNumber(sample.ref_random_class.score);
   }
-  return "N/A (random same-class)";
+  return "N/A (not retrieval-ranked)";
 }
 
 function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSrc }) {
@@ -444,7 +443,15 @@ function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSr
       <strong>${escapeHtml(title)}</strong>
       ${renderMetaList(rows)}
       <video controls preload="metadata" playsinline src="${videoSrc}"></video>
-      <audio controls preload="metadata" src="${audioSrc}"></audio>
+      ${renderAudioElement(audioSrc)}
+    </div>
+  `;
+}
+
+function renderAudioElement(src) {
+  return `
+    <div class="audio-shell">
+      <audio controls preload="metadata" src="${src}"></audio>
     </div>
   `;
 }
@@ -467,7 +474,7 @@ function renderAudioOrMissing(isAvailable, src, message) {
   if (!isAvailable) {
     return `<div class="empty-media">${escapeHtml(message)}</div>`;
   }
-  return `<audio controls preload="metadata" src="${src}"></audio>`;
+  return renderAudioElement(src);
 }
 
 async function fetchJson(path) {

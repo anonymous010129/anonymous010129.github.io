@@ -383,14 +383,36 @@ th {
 .media-panel audio {
   display: block;
   width: 100%;
-  margin-top: 12px;
   border-radius: 6px;
-  background: #101417;
 }
 
 .media-panel video {
+  margin-top: 12px;
   aspect-ratio: 16 / 9;
   object-fit: contain;
+  background: #e7edf0;
+}
+
+.audio-shell {
+  width: 100%;
+  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.media-panel audio {
+  margin-top: 0;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+}
+
+.media-panel audio::-webkit-media-controls-enclosure,
+.media-panel audio::-webkit-media-controls-panel {
+  background: #ffffff;
+  border-radius: 999px;
 }
 
 .bare-media-cell {
@@ -401,6 +423,10 @@ th {
 
 .bare-media-cell audio,
 .bare-media-cell video {
+  margin-top: 0;
+}
+
+.bare-media-cell .audio-shell {
   margin-top: 0;
 }
 

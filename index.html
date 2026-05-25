@@ -32,7 +32,7 @@
 
       <section class="notice-band">
         <strong>Shared review subset.</strong>
-        <span>5 dataset-check examples, 10 V2A samples, and 5 T2A samples are available for direct listening on the web.</span>
+        <span>5 dataset-check examples, 9 V2A comparison samples, and 5 T2A samples are available for direct listening on the web.</span>
       </section>
 
       <section class="landing-grid">
@@ -78,13 +78,13 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Resemblyzer ↑</td>
+                    <td>Resemblyzer &uarr;</td>
                     <td>+11.1%</td>
                     <td>+11.8%</td>
                     <td>+7.8%</td>
                   </tr>
                   <tr>
-                    <td>MCD ↓</td>
+                    <td>MCD &darr;</td>
                     <td>down 3%</td>
                     <td>down 9%</td>
                     <td>down 9%</td>
@@ -102,10 +102,10 @@
                 <thead>
                   <tr>
                     <th>Model</th>
-                    <th>Resemblyzer ↑</th>
-                    <th>MCD ↓</th>
-                    <th>s / sample ↓</th>
-                    <th>GPU mem ↓</th>
+                    <th>Resemblyzer &uarr;</th>
+                    <th>MCD &darr;</th>
+                    <th>s / sample &darr;</th>
+                    <th>GPU mem &darr;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -148,8 +148,8 @@
             <span class="panel-tag">Page 1</span>
             <h3>VGGSound-ConRet Dataset Check</h3>
             <p>
-              Samples from the augmentation corpus. Each anchor video is paired with LLM-prompted audio variants.
-              Listen for acoustically distinct yet semantically related variants.
+              A compact dataset sanity check. Each anchor clip is paired with retrieved reference audio and generated
+              variants so the conditioning setup can be inspected quickly and naturally.
             </p>
             <a class="demo-link" href="page1.html">Open Page 1</a>
           </article>
@@ -158,8 +158,8 @@
             <span class="panel-tag">Page 2</span>
             <h3>Audio Conditioned V2A Generation Quality Check</h3>
             <p>
-              Shared V2A subset with three reference conditions. Each row compares ConRet (Ours) against
-              AC-Foley and ControlFoley under the same reference audio.
+              A direct V2A listening comparison. Each reference condition is shared across ConRet (Ours), AC-Foley,
+              and ControlFoley so the response of each model is easy to compare.
             </p>
             <a class="demo-link" href="page2.html">Open Page 2</a>
           </article>
@@ -168,8 +168,8 @@
             <span class="panel-tag">Page 3</span>
             <h3>Audio Conditioned T2A Generation Quality Check</h3>
             <p>
-              Shared T2A subset with no-reference, mid-reference, and random-reference generation modes.
-              Compare reference audios against the generated outputs for the same label.
+              A focused T2A listening set. Each prompt is shared across the sample, and every reference input is paired
+              directly with the matching ConRet (Ours) output so the conditioning effect is easier to hear.
             </p>
             <a class="demo-link" href="page3.html">Open Page 3</a>
           </article>
