@@ -140,14 +140,18 @@ async function loadV2ASamples() {
 
 async function loadT2ASamples() {
   const mapping = await fetchJson("T2A_sample/refs_mapping.json");
-  return T2A_SAMPLE_ORDER.map((id) => {
+  const samples = await Promise.all(T2A_SAMPLE_ORDER.map(async (id) => {
     const sample = mapping[id];
     if (!sample) {
       throw new Error(`Missing T2A mapping for ${id}`);
     }
 
+    const meta = await fetchJson(`T2A_sample/meta/t2a/${id}/meta.json`);
+
     return {
       ...sample,
+      meta,
+      promptText: meta.afn_caption || meta.gt_caption || sample.label,
       anchor: `sample-${id}`,
       paths: {
         refMid: `T2A_sample/ref_mid/${id}.wav`,
@@ -157,7 +161,9 @@ async function loadT2ASamples() {
         genNoRef: `T2A_sample/gen_no_ref/${id}.wav`
       }
     };
-  });
+  }));
+
+  return samples;
 }
 
 function renderPianoSample(sample, index) {
@@ -220,6 +226,7 @@ function renderV2ASample(sample, index) {
       <div class="sample-head">
         <span class="sample-index">Sample ${String(index + 1).padStart(2, "0")}</span>
         <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
+        <p class="sample-subtitle">Text: ${escapeHtml(sample.promptText)}</p>
       </div>
 
       <div class="sample-scroll">
@@ -354,7 +361,7 @@ function renderT2ASample(sample, index) {
             title: "Mid-sim retrieval reference",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.label },
+              { label: "Text", value: sample.promptText },
               { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
             ],
             audioSrc: sample.paths.refMid,
@@ -367,7 +374,7 @@ function renderT2ASample(sample, index) {
             title: "Random same-class reference",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.label }
+              { label: "Text", value: sample.promptText }
             ],
             audioSrc: sample.paths.refRandom,
             isAvailable: true
@@ -389,7 +396,7 @@ function renderT2ASample(sample, index) {
             title: "Mid-conditioned generation",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.label }
+              { label: "Text", value: sample.promptText }
             ],
             audioSrc: sample.paths.genMid,
             isAvailable: true
@@ -401,7 +408,7 @@ function renderT2ASample(sample, index) {
             title: "Random-conditioned generation",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.label }
+              { label: "Text", value: sample.promptText }
             ],
             audioSrc: sample.paths.genRandom,
             isAvailable: true
@@ -413,7 +420,7 @@ function renderT2ASample(sample, index) {
             title: "No-reference generation",
             rows: [
               { label: "Label", value: titleCase(sample.label) },
-              { label: "Text", value: sample.label }
+              { label: "Text", value: sample.promptText }
             ],
             audioSrc: sample.paths.genNoRef,
             isAvailable: true
