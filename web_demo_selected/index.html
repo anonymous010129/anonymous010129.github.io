@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>VGGSound Augmentation Web Demo</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 1100px; margin: 32px auto; padding: 0 16px; line-height: 1.6; color: #222; }
+h1 { border-bottom: 3px solid #333; padding-bottom: 8px; }
+h2 { margin-top: 2.5em; padding: 12px 16px; background: #f4f4f8; border-left: 6px solid #555; }
+.example { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fafafa; }
+.example.representative { border-color: #b8a7dc; background: #fbf9ff; }
+.example h3 { margin: 0 0 12px 0; color: #333; }
+.example-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 8px 0 14px; }
+.example-meta > div { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; }
+.meta-label { display: block; color: #666; font-size: 0.78em; font-weight: 700; letter-spacing: 0; }
+.example-meta p { margin: 4px 0 0; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+.row3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+.two-up .col { min-width: 320px; }
+@media (max-width: 900px) { .row3, .example-meta { grid-template-columns: 1fr; } }
+.col { flex: 1; min-width: 280px; }
+.col h4 { margin: 0 0 6px 0; font-size: 0.95em; color: #555; }
+.label { display: inline-block; padding: 2px 8px; border-radius: 4px; background: #444; color: white; font-size: 0.78em; margin-right: 6px; }
+.label.gt { background: #1565c0; }
+.label.aug { background: #e65100; }
+.label.ref { background: #2e7d32; }
+.label.piano { background: #6a1b9a; }
+.prompt { background: #fffaf0; padding: 8px 12px; border-radius: 6px; margin: 8px 0; font-size: 0.9em; }
+.reference-block { margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; }
+.reference-block h5 { margin: 0 0 6px; color: #555; font-size: 0.9em; font-weight: 600; }
+audio, video { width: 100%; }
+video { max-height: 240px; background: #000; }
+.intro { background: #eef; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<h1>AC-V2A / AC-T2A — VGGSound Augmentation Pipeline Demo</h1>
+<div class="intro">
+This page contains selected examples from our VGGSound-based augmentation pipeline. Each example separates <b>GT Category Text</b> from <b>Aug Caption</b>, and every retrieved reference audio is placed directly under the video + audio source used for retrieval.
+</div>
+
+<h2>Representative Example</h2>
+
+<div class="example representative">
+<h3>Piano Example #1</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>gentle piano melody plays slowly and expressively on solo acoustic grand piano</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex01/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex01/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural piano playing, balanced tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex01/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex01/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> harpsichord rapid arpeggios, bright plucked tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex01/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<h2>1. V2A Pairs (Aug × Aug) — 8 examples</h2>
+<p>Selected V2A training pairs using two augmented audio variations of the same VGGSound clip.</p>
+
+<div class="example">
+<h3>V2A Pair #1</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>owl hooting</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>owl hooting repeatedly</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex00/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex00/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural owl screeching, balanced tone, moderate resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex00/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex00/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural wolf howling, balanced tone, moderate resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex00/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #2</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>beat boxing</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>rapid rhythmic vocal percussion, low-fidelity recording quality</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex01/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex01/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> child beatboxing rhythms with balanced kicks, snares, and hi-hats</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex01/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex01/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> analog synth drums playing punchy kicks, snares, and hi-hats</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex01/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #3</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing electric guitar</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>electric guitar solo melody</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex02/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex02/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> electric guitar string bending with sustained amp feedback</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex02/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex02/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> banjo rapid fingerpicking with crisp twangy articulation</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex02/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #4</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing timpani</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>drum kit plays rhythmic pattern</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex03/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex03/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> timpani damped strikes, short controlled resonance with muted decay</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex03/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex03/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> bongo alternating fingertip taps, dry lively pulses</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex03/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #5</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>male singing</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>male choir singing gospel-style over piano accompaniment</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex04/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex04/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> male whistling gently, natural tone, moderate resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex04/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex04/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> male choir singing in harmony, blended tone, moderate resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex04/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #6</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>people whistling</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>whistling continuous melodic tune</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex07/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex07/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural human humming, clear and moderate tone</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex07/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex07/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> human breathy whistling, clear and moderate tone</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex07/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>V2A Pair #7</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>squishing water</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>water flowing gently into container followed by metallic clank then scraping noise</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex09/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex09/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> thick mud sloshing and suction squelches, heavy visceral wet compression</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex09/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/v2a/ex09/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> saturated snow compressed under a boot, close and natural</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/v2a/ex09/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+
+<div class="example">
+<h3>V2A Pair #8</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>upbeat jazz piano melody</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural piano playing, balanced tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> thunderous concert grand piano, aggressive hammered chords, resonant hall-shaking sustain</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+
+<h2>2. T2A Pairs (GT × Aug) — 8 examples</h2>
+<p>Each T2A example shows the GT source and the augmented source side by side. Retrieved audio is placed directly under the video + audio source it was searched from.</p>
+
+<div class="example">
+<h3>T2A Pair #1</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>parrot talking</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>bird chirping, cat meowing, bird whistling</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex01/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex01/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex01/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> raucous macaw screeches with harsh, frantic human-like mimicry</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex01/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #2</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing mandolin</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>banjo melody plays clearly</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex02/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex02/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex02/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> Natural mandolin strumming, balanced tone, moderate resonance.</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex02/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #3</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>male singing</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>crowd cheering, rhythmic drumming</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex05/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex05/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex05/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> male whistling gently, natural tone, moderate resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex05/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #4</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing vibraphone</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>mallet percussion melody, groovy bass line, shimmering hi-hats, snappy rimshots</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex08/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex08/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex08/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> vibraphone softly rolled notes, swelling sustain, balanced metallic resonance</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex08/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #5</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>forging swords</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>wooden object struck once followed by continuous high-pitched metallic scraping noise</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex10/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex10/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex10/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> steady hammering on hot iron billet, balanced metallic forge tone</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex10/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #6</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>francolin calling</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>geese honking loudly</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex11/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex11/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex11/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> Natural partridge call, clear mid-pitched repeated notes</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex11/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #7</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>chicken clucking</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>chicken clucking, rooster crowing</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex12/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex12/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex12/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural goose honking, balanced tone, moderate presence</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex12/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>T2A Pair #8</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>using sewing machines</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>Sewing machine operating rhythmically</p>
+  </div>
+</div>
+<div class="row two-up">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex13/video_gt.mp4"></video>
+    
+<div class="reference-block">
+  <h5><span class="label ref">GT Ref</span> Retrieved audio for GT Video + GT Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex13/gt_ref.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/t2a/ex13/video_aug.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> sewing machine idling, soft motor hum and occasional mechanism clicks</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref</span> Retrieved audio for Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/t2a/ex13/ref.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+<script>
+(function () {
+  const mediaElements = Array.from(document.querySelectorAll("audio[data-media-src], video[data-media-src]"));
+  if (mediaElements.length === 0) {
+    return;
+  }
+
+  const hydrateMedia = (media) => {
+    const src = media.getAttribute("data-media-src");
+    if (!src) {
+      return;
+    }
+
+    media.src = src;
+    media.removeAttribute("data-media-src");
+  };
+
+  const primeNearbyMedia = () => {
+    mediaElements.forEach((media) => {
+      if (!media.hasAttribute("data-media-src")) {
+        return;
+      }
+
+      const rect = media.getBoundingClientRect();
+      if (rect.top <= window.innerHeight + 480 && rect.bottom >= -240) {
+        hydrateMedia(media);
+      }
+    });
+  };
+
+  primeNearbyMedia();
+
+  if (!("IntersectionObserver" in window)) {
+    mediaElements.forEach(hydrateMedia);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      hydrateMedia(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: "480px 0px"
+  });
+
+  mediaElements.forEach((media) => {
+    if (!media.hasAttribute("data-media-src")) {
+      return;
+    }
+
+    const wakeMedia = () => hydrateMedia(media);
+    media.addEventListener("pointerenter", wakeMedia, { once: true });
+    media.addEventListener("focus", wakeMedia, { once: true });
+    media.addEventListener("pointerdown", wakeMedia, { once: true, capture: true });
+    media.addEventListener("touchstart", wakeMedia, { once: true, passive: true });
+    observer.observe(media);
+  });
+})();
+</script></body>
+</html>

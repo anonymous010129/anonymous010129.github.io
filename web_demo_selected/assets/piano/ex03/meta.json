@@ -1,0 +1,33 @@
+{
+  "kind": "piano",
+  "vid_id": "0_ppreuPMuk_000170",
+  "label": "playing piano",
+  "gt_caption": "gentle piano melody plays steadily throughout",
+  "pair": {
+    "key_a": "0_ppreuPMuk_000170/P2b_s6000",
+    "key_b": "0_ppreuPMuk_000170/P4_s5000",
+    "ptype_a": "P2b",
+    "seed_a": "s6000",
+    "ptype_b": "P4",
+    "seed_b": "s5000",
+    "aug_a_prompt": "natural pipe organ playing, balanced tone, moderate room ambience",
+    "aug_b_prompt": "harpsichord rapid arpeggios, bright plucked tone, moderate room ambience",
+    "cos_sim": 0.4241
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/0_ppreuPMuk_000170.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/0_ppreuPMuk_000170.wav",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/0_ppreuPMuk_000170/P2b_s6000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/0_ppreuPMuk_000170/P4_s5000.wav",
+  "ref_a": {
+    "db_idx_v3": 268676,
+    "db_key": "wavcaps_freesound/80839",
+    "score": 0.7726,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/80839.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 111929,
+    "db_key": "wavcaps_audioset/YCAP3kZnJDnM",
+    "score": 0.7815,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YCAP3kZnJDnM.flac"
+  }
+}
