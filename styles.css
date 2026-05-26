@@ -25,6 +25,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Inter, "Segoe UI", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 a {
@@ -231,6 +232,7 @@ th {
   width: min(var(--page-width), calc(100vw - 28px));
   margin: 0 auto;
   padding: 22px 0 44px;
+  min-width: 0;
 }
 
 .page-intro {
@@ -240,6 +242,7 @@ th {
 .sample-list {
   display: grid;
   gap: 18px;
+  min-width: 0;
 }
 
 .sample-block {
@@ -248,6 +251,8 @@ th {
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .sample-head {
@@ -283,6 +288,9 @@ th {
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 6px;
+  max-width: 100%;
+  min-width: 0;
+  overscroll-behavior-x: contain;
 }
 
 .v2a-compare {
