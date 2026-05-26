@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "eDVCvo_UlXs_000017",
+  "label": "francolin calling",
+  "gt_caption": "geese honking loudly",
+  "aug": {
+    "aug_key": "eDVCvo_UlXs_000017/P2b_s6000",
+    "ptype": "P2b",
+    "seed": "s6000",
+    "aug_prompt": "Natural partridge call, clear mid-pitched repeated notes"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/eDVCvo_UlXs_000017.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/eDVCvo_UlXs_000017.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/eDVCvo_UlXs_000017/P2b_s6000.wav",
+  "ref": {
+    "db_idx_v3": 292275,
+    "db_idx_records": 186754,
+    "db_key": "wavcaps_freesound/316921_seg0",
+    "score": 0.8477363586425781,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/316921_seg0.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 307488,
+    "db_key": "wavcaps_freesound/438148_seg0",
+    "score": 0.7587459683418274,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/438148_seg0.flac"
+  }
+}

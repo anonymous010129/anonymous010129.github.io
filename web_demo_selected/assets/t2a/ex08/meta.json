@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "noMpHddei_w_000010",
+  "label": "playing vibraphone",
+  "gt_caption": "mallet percussion melody, groovy bass line, shimmering hi-hats, snappy rimshots",
+  "aug": {
+    "aug_key": "noMpHddei_w_000010/P3b_s7000",
+    "ptype": "P3b",
+    "seed": "s7000",
+    "aug_prompt": "vibraphone softly rolled notes, swelling sustain, balanced metallic resonance"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/noMpHddei_w_000010.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/noMpHddei_w_000010.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/noMpHddei_w_000010/P3b_s7000.wav",
+  "ref": {
+    "db_idx_v3": 336081,
+    "db_idx_records": 425003,
+    "db_key": "wavcaps_freesound/83504_seg0",
+    "score": 0.8652185201644897,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/83504_seg0.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 169458,
+    "db_key": "wavcaps_audioset/YrIyQue4ap5Q",
+    "score": 0.936355471611023,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YrIyQue4ap5Q.flac"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "u1x4xKwz4sg_000437",
+  "label": "writing on blackboard with chalk",
+  "gt_caption": "wooden surface rubbed, rhythmic scraping, low hum, male voice talking",
+  "aug": {
+    "aug_key": "u1x4xKwz4sg_000437/P4c_s11000",
+    "ptype": "P4c",
+    "seed": "s11000",
+    "aug_prompt": "Fingernail scratching painted wall, thin dry rasping"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/u1x4xKwz4sg_000437.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/u1x4xKwz4sg_000437.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/u1x4xKwz4sg_000437/P4c_s11000.wav",
+  "ref": {
+    "db_idx_v3": 198800,
+    "db_idx_records": 276984,
+    "db_key": "wavcaps_freesound/210141",
+    "score": 0.7637239694595337,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/210141.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 154824,
+    "db_key": "wavcaps_audioset/YfljtEcT5N24",
+    "score": 0.7933088541030884,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YfljtEcT5N24.flac"
+  }
+}

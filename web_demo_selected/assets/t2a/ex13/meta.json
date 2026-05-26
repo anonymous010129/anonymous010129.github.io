@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "trWfhRh22ss_000060",
+  "label": "using sewing machines",
+  "gt_caption": "Sewing machine operating rhythmically",
+  "aug": {
+    "aug_key": "trWfhRh22ss_000060/P3_s4000",
+    "ptype": "P3",
+    "seed": "s4000",
+    "aug_prompt": "sewing machine idling, soft motor hum and occasional mechanism clicks"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/trWfhRh22ss_000060.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/trWfhRh22ss_000060.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/trWfhRh22ss_000060/P3_s4000.wav",
+  "ref": {
+    "db_idx_v3": 269928,
+    "db_idx_records": 294766,
+    "db_key": "wavcaps_freesound/86265",
+    "score": 0.9064708352088928,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/86265.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 47754,
+    "db_key": "audiocaps/SYri4jH-9Bo_120",
+    "score": 0.9478915333747864,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/SYri4jH-9Bo_120.wav"
+  }
+}

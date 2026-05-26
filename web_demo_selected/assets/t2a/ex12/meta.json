@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "civwA5z8nME_000063",
+  "label": "chicken clucking",
+  "gt_caption": "chicken clucking, rooster crowing",
+  "aug": {
+    "aug_key": "civwA5z8nME_000063/P4_s5000",
+    "ptype": "P4",
+    "seed": "s5000",
+    "aug_prompt": "natural goose honking, balanced tone, moderate presence"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/civwA5z8nME_000063.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/civwA5z8nME_000063.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/civwA5z8nME_000063/P4_s5000.wav",
+  "ref": {
+    "db_idx_v3": 250575,
+    "db_idx_records": 176329,
+    "db_key": "wavcaps_freesound/556221",
+    "score": 0.8326079249382019,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/556221.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 136354,
+    "db_key": "wavcaps_audioset/YT8OqdYoNn7c",
+    "score": 0.8299844861030579,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YT8OqdYoNn7c.flac"
+  }
+}

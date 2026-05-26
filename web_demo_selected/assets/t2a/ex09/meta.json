@@ -1,0 +1,23 @@
+{
+  "kind": "t2a",
+  "vid_id": "e90dXmFfNAQ_000003",
+  "label": "airplane flyby",
+  "gt_caption": "large vehicle passing left-right followed by smaller vehicle passing right-left",
+  "aug": {
+    "aug_key": "e90dXmFfNAQ_000003/P3c_s10000",
+    "ptype": "P3c",
+    "seed": "s10000",
+    "aug_prompt": "airplane descending for landing, engine roar softens with rushing air"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/e90dXmFfNAQ_000003.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/e90dXmFfNAQ_000003.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/e90dXmFfNAQ_000003/P3c_s10000.wav",
+  "ref": {
+    "db_idx_v3": 516592,
+    "db_idx_records": 516591,
+    "db_key": "laion_freesound/416297",
+    "score": 0.7705763578414917,
+    "path": "/home/judejiwoo/audioretrieval_data/laion_freesound/audio/test/416297.flac"
+  },
+  "gt_ref": null
+}
