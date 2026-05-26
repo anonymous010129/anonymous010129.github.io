@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "1QYMmPjHIwo_000032",
+  "label": "child singing",
+  "gt_caption": "child singing folk song",
+  "pair": {
+    "key_a": "1QYMmPjHIwo_000032/P2_s3000",
+    "key_b": "1QYMmPjHIwo_000032/P4_s5000",
+    "ptype_a": "P2",
+    "seed_a": "s3000",
+    "ptype_b": "P4",
+    "seed_b": "s5000",
+    "aug_a_prompt": "adult woman singing, clear and natural tone",
+    "aug_b_prompt": "elderly man chanting steadily, clear and natural tone",
+    "cos_sim": 0.3826
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/1QYMmPjHIwo_000032.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/1QYMmPjHIwo_000032/P2_s3000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/1QYMmPjHIwo_000032/P4_s5000.wav",
+  "ref_a": {
+    "db_idx_v3": 89186,
+    "db_key": "wavcaps_audioset/Y-uXUfkZ2d1Y",
+    "score": 0.7923,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Y-uXUfkZ2d1Y.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 216751,
+    "db_key": "wavcaps_freesound/360427",
+    "score": 0.8337,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/360427.flac"
+  }
+}

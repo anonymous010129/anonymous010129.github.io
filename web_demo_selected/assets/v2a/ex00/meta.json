@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "Pk9w-WpUljA_000067",
+  "label": "owl hooting",
+  "gt_caption": "owl hooting repeatedly",
+  "pair": {
+    "key_a": "Pk9w-WpUljA_000067/P3_s4000",
+    "key_b": "Pk9w-WpUljA_000067/P4_s5000",
+    "ptype_a": "P3",
+    "seed_a": "s4000",
+    "ptype_b": "P4",
+    "seed_b": "s5000",
+    "aug_a_prompt": "natural owl screeching, balanced tone, moderate resonance",
+    "aug_b_prompt": "natural wolf howling, balanced tone, moderate resonance",
+    "cos_sim": 0.4735
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/Pk9w-WpUljA_000067.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/Pk9w-WpUljA_000067/P3_s4000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/Pk9w-WpUljA_000067/P4_s5000.wav",
+  "ref_a": {
+    "db_idx_v3": 250951,
+    "db_key": "wavcaps_freesound/558398",
+    "score": 0.9081,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/558398.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 274279,
+    "db_key": "wavcaps_freesound/115423_seg0",
+    "score": 0.8933,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/115423_seg0.flac"
+  }
+}

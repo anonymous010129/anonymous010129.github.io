@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "W3D7LK5_8ts_000330",
+  "label": "playing saxophone",
+  "gt_caption": "jazz band performance",
+  "pair": {
+    "key_a": "W3D7LK5_8ts_000330/P0_s1000",
+    "key_b": "W3D7LK5_8ts_000330/P4c_s11000",
+    "ptype_a": "P0",
+    "seed_a": "s1000",
+    "ptype_b": "P4c",
+    "seed_b": "s11000",
+    "aug_a_prompt": "Natural saxophone tone, balanced mids, moderate breathiness.",
+    "aug_b_prompt": "Held harmonica note, focused mids, steady breathy airflow.",
+    "cos_sim": 0.4581
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/W3D7LK5_8ts_000330.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/W3D7LK5_8ts_000330/P0_s1000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/W3D7LK5_8ts_000330/P4c_s11000.wav",
+  "ref_a": {
+    "db_idx_v3": 155826,
+    "db_key": "wavcaps_audioset/YgWyWU6PAl4g",
+    "score": 0.8248,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YgWyWU6PAl4g.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 122786,
+    "db_key": "wavcaps_audioset/YJQLVgakfuFU",
+    "score": 0.8322,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YJQLVgakfuFU.flac"
+  }
+}

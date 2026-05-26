@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "QZbc-nEHXW4_000142",
+  "label": "squishing water",
+  "gt_caption": "water flowing gently into container followed by metallic clank then scraping noise",
+  "pair": {
+    "key_a": "QZbc-nEHXW4_000142/P1_s2000",
+    "key_b": "QZbc-nEHXW4_000142/P4c_s11000",
+    "ptype_a": "P1",
+    "seed_a": "s2000",
+    "ptype_b": "P4c",
+    "seed_b": "s11000",
+    "aug_a_prompt": "thick mud sloshing and suction squelches, heavy visceral wet compression",
+    "aug_b_prompt": "saturated snow compressed under a boot, close and natural",
+    "cos_sim": 0.4352
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/QZbc-nEHXW4_000142.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/QZbc-nEHXW4_000142/P1_s2000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/QZbc-nEHXW4_000142/P4c_s11000.wav",
+  "ref_a": {
+    "db_idx_v3": 361907,
+    "db_key": "ncai/0668203_GOREFlsh_Body Impact_PSE_OE_2C93B",
+    "score": 0.774,
+    "path": "/home/private_data/NC_AI/SFX/Gore/0668203_GOREFlsh_Body Impact_PSE_OE_2C93B.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 42198,
+    "db_key": "audiocaps/OGg_JiZ_HsI_6",
+    "score": 0.7874,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/OGg_JiZ_HsI_6.wav"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "ggDsLmQDQlE_000030",
+  "label": "male singing",
+  "gt_caption": "male choir singing gospel-style over piano accompaniment",
+  "pair": {
+    "key_a": "ggDsLmQDQlE_000030/P3b_s7000",
+    "key_b": "ggDsLmQDQlE_000030/P4b_s8000",
+    "ptype_a": "P3b",
+    "seed_a": "s7000",
+    "ptype_b": "P4b",
+    "seed_b": "s8000",
+    "aug_a_prompt": "male whistling gently, natural tone, moderate resonance",
+    "aug_b_prompt": "male choir singing in harmony, blended tone, moderate resonance",
+    "cos_sim": 0.4753
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/ggDsLmQDQlE_000030.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/ggDsLmQDQlE_000030/P3b_s7000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/ggDsLmQDQlE_000030/P4b_s8000.wav",
+  "ref_a": {
+    "db_idx_v3": 4019,
+    "db_key": "audiocaps/0rLM_l_EhWA_10",
+    "score": 0.7879,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/0rLM_l_EhWA_10.wav"
+  },
+  "ref_b": {
+    "db_idx_v3": 127244,
+    "db_key": "wavcaps_audioset/YM__pR8a-Sfk",
+    "score": 0.8186,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YM__pR8a-Sfk.flac"
+  }
+}

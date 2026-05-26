@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "P8pdKGTOPiw_000116",
+  "label": "cat hissing",
+  "gt_caption": "cat meowing repeatedly, human whispering quietly, male voice saying \"Yeah\" clearly",
+  "pair": {
+    "key_a": "P8pdKGTOPiw_000116/P0_s1000",
+    "key_b": "P8pdKGTOPiw_000116/P2_s3000",
+    "ptype_a": "P0",
+    "seed_a": "s1000",
+    "ptype_b": "P2",
+    "seed_b": "s3000",
+    "aug_a_prompt": "neutral cat hiss, natural midrange, dry",
+    "aug_b_prompt": "goose hissing, natural midrange, dry",
+    "cos_sim": 0.4744
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/P8pdKGTOPiw_000116.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/P8pdKGTOPiw_000116/P0_s1000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/P8pdKGTOPiw_000116/P2_s3000.wav",
+  "ref_a": {
+    "db_idx_v3": 72757,
+    "db_key": "audiocaps/mpRnAyrzLIk_6",
+    "score": 0.821,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/mpRnAyrzLIk_6.wav"
+  },
+  "ref_b": {
+    "db_idx_v3": 77149,
+    "db_key": "audiocaps/qlJ6SnJE4vY_150",
+    "score": 0.7743,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/qlJ6SnJE4vY_150.wav"
+  }
+}

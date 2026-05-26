@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "fIS3bcAowl4_000027",
+  "label": "playing harmonica",
+  "gt_caption": "accordion melody",
+  "pair": {
+    "key_a": "fIS3bcAowl4_000027/P2_s3000",
+    "key_b": "fIS3bcAowl4_000027/P3_s4000",
+    "ptype_a": "P2",
+    "seed_a": "s3000",
+    "ptype_b": "P3",
+    "seed_b": "s4000",
+    "aug_a_prompt": "Neutral accordion melody, balanced tone, moderate bellows, dry recording",
+    "aug_b_prompt": "Harmonica chord stab, balanced tone, moderate breath, dry recording",
+    "cos_sim": 0.4662
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/fIS3bcAowl4_000027.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/fIS3bcAowl4_000027/P2_s3000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/fIS3bcAowl4_000027/P3_s4000.wav",
+  "ref_a": {
+    "db_idx_v3": 144390,
+    "db_key": "wavcaps_audioset/YZ0XuQizzh-A",
+    "score": 0.7913,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YZ0XuQizzh-A.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 122786,
+    "db_key": "wavcaps_audioset/YJQLVgakfuFU",
+    "score": 0.8841,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YJQLVgakfuFU.flac"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "af8N0UavZ88_000009",
+  "label": "playing timbales",
+  "gt_caption": "percussion instrument plays rhythmically",
+  "pair": {
+    "key_a": "af8N0UavZ88_000009/P2c_s9000",
+    "key_b": "af8N0UavZ88_000009/P3_s4000",
+    "ptype_a": "P2c",
+    "seed_a": "s9000",
+    "ptype_b": "P3",
+    "seed_b": "s4000",
+    "aug_a_prompt": "neutral woodblock rhythm, crisp stick hits, balanced resonance",
+    "aug_b_prompt": "timbales rimshots and shell strikes, sharp clicks, metallic resonance",
+    "cos_sim": 0.4617
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/af8N0UavZ88_000009.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/af8N0UavZ88_000009/P2c_s9000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/af8N0UavZ88_000009/P3_s4000.wav",
+  "ref_a": {
+    "db_idx_v3": 96281,
+    "db_key": "wavcaps_audioset/Y3KMvxiXOdCM",
+    "score": 0.8198,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Y3KMvxiXOdCM.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 193567,
+    "db_key": "wavcaps_freesound/179873",
+    "score": 0.7753,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/179873.flac"
+  }
+}

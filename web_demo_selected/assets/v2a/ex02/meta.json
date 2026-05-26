@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "SoIEpbrM7Lo_000500",
+  "label": "playing electric guitar",
+  "gt_caption": "electric guitar solo melody",
+  "pair": {
+    "key_a": "SoIEpbrM7Lo_000500/P3_s4000",
+    "key_b": "SoIEpbrM7Lo_000500/P4c_s11000",
+    "ptype_a": "P3",
+    "seed_a": "s4000",
+    "ptype_b": "P4c",
+    "seed_b": "s11000",
+    "aug_a_prompt": "electric guitar string bending with sustained amp feedback",
+    "aug_b_prompt": "banjo rapid fingerpicking with crisp twangy articulation",
+    "cos_sim": 0.3298
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/SoIEpbrM7Lo_000500.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/SoIEpbrM7Lo_000500/P3_s4000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/SoIEpbrM7Lo_000500/P4c_s11000.wav",
+  "ref_a": {
+    "db_idx_v3": 267404,
+    "db_key": "wavcaps_freesound/75315",
+    "score": 0.7862,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/75315.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 234266,
+    "db_key": "wavcaps_freesound/456801",
+    "score": 0.8169,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/456801.flac"
+  }
+}

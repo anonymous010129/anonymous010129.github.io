@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "38Hz4a6LNUs_000731",
+  "label": "metronome",
+  "gt_caption": "Spanish dialogue followed by slap sound then upbeat greeting voice over electronic melody",
+  "pair": {
+    "key_a": "38Hz4a6LNUs_000731/P3b_s7000",
+    "key_b": "38Hz4a6LNUs_000731/P4_s5000",
+    "ptype_a": "P3b",
+    "seed_a": "s7000",
+    "ptype_b": "P4",
+    "seed_b": "s5000",
+    "aug_a_prompt": "slow metronome ticks, balanced tone, dry and neutral",
+    "aug_b_prompt": "wind-up alarm clock rapid ticking, dry mechanical pulse",
+    "cos_sim": 0.4388
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/38Hz4a6LNUs_000731.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/38Hz4a6LNUs_000731/P3b_s7000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/38Hz4a6LNUs_000731/P4_s5000.wav",
+  "ref_a": {
+    "db_idx_v3": 148498,
+    "db_key": "wavcaps_audioset/Yb1bNLLyufkA",
+    "score": 0.8721,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Yb1bNLLyufkA.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 176353,
+    "db_key": "wavcaps_audioset/YwvmUdyFycdg",
+    "score": 0.8556,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YwvmUdyFycdg.flac"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "VZiV1ZJQgjw_000356",
+  "label": "beat boxing",
+  "gt_caption": "rapid rhythmic vocal percussion, low-fidelity recording quality",
+  "pair": {
+    "key_a": "VZiV1ZJQgjw_000356/P2_s3000",
+    "key_b": "VZiV1ZJQgjw_000356/P4c_s11000",
+    "ptype_a": "P2",
+    "seed_a": "s3000",
+    "ptype_b": "P4c",
+    "seed_b": "s11000",
+    "aug_a_prompt": "child beatboxing rhythms with balanced kicks, snares, and hi-hats",
+    "aug_b_prompt": "analog synth drums playing punchy kicks, snares, and hi-hats",
+    "cos_sim": 0.38
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/VZiV1ZJQgjw_000356.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/VZiV1ZJQgjw_000356/P2_s3000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/VZiV1ZJQgjw_000356/P4c_s11000.wav",
+  "ref_a": {
+    "db_idx_v3": 279822,
+    "db_key": "wavcaps_freesound/166742_seg0",
+    "score": 0.8316,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/166742_seg0.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 94623,
+    "db_key": "wavcaps_audioset/Y2X2PGBNiM9g",
+    "score": 0.8797,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Y2X2PGBNiM9g.flac"
+  }
+}

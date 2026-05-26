@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "zmjgEB5KGCc_000101",
+  "label": "people burping",
+  "gt_caption": "woman speaks Spanish then burps followed by another woman's voice",
+  "pair": {
+    "key_a": "zmjgEB5KGCc_000101/P1_s2000",
+    "key_b": "zmjgEB5KGCc_000101/P4_s5000",
+    "ptype_a": "P1",
+    "seed_a": "s2000",
+    "ptype_b": "P4",
+    "seed_b": "s5000",
+    "aug_a_prompt": "huge guttural belch, cavernous and wet, erupting with explosive force",
+    "aug_b_prompt": "soft baby gurgling, mid-pitched, wet and neutral",
+    "cos_sim": 0.2658
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/zmjgEB5KGCc_000101.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/zmjgEB5KGCc_000101/P1_s2000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/zmjgEB5KGCc_000101/P4_s5000.wav",
+  "ref_a": {
+    "db_idx_v3": 171370,
+    "db_key": "wavcaps_audioset/YssjnEuH4gHE",
+    "score": 0.7801,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YssjnEuH4gHE.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 99819,
+    "db_key": "wavcaps_audioset/Y59c5ZsGXGZE",
+    "score": 0.832,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Y59c5ZsGXGZE.flac"
+  }
+}

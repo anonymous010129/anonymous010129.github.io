@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "auuXR1LFzHc_000024",
+  "label": "playing timpani",
+  "gt_caption": "drum kit plays rhythmic pattern",
+  "pair": {
+    "key_a": "auuXR1LFzHc_000024/P3c_s10000",
+    "key_b": "auuXR1LFzHc_000024/P4c_s11000",
+    "ptype_a": "P3c",
+    "seed_a": "s10000",
+    "ptype_b": "P4c",
+    "seed_b": "s11000",
+    "aug_a_prompt": "timpani damped strikes, short controlled resonance with muted decay",
+    "aug_b_prompt": "bongo alternating fingertip taps, dry lively pulses",
+    "cos_sim": 0.3491
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/auuXR1LFzHc_000024.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/auuXR1LFzHc_000024/P3c_s10000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/auuXR1LFzHc_000024/P4c_s11000.wav",
+  "ref_a": {
+    "db_idx_v3": 234280,
+    "db_key": "wavcaps_freesound/456964",
+    "score": 0.8897,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/456964.flac"
+  },
+  "ref_b": {
+    "db_idx_v3": 258449,
+    "db_key": "wavcaps_freesound/610353",
+    "score": 0.8101,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/610353.flac"
+  }
+}

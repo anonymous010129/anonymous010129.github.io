@@ -1,0 +1,32 @@
+{
+  "kind": "v2a",
+  "vid_id": "sRmvIWHlzBg_000029",
+  "label": "baby crying",
+  "gt_caption": "Infant cries repeatedly, high-pitched and distressed, interspersed with quiet breathing between bouts. The infant's vocalizations vary from sharp, piercing",
+  "pair": {
+    "key_a": "sRmvIWHlzBg_000029/P2c_s9000",
+    "key_b": "sRmvIWHlzBg_000029/P3_s4000",
+    "ptype_a": "P2c",
+    "seed_a": "s9000",
+    "ptype_b": "P3",
+    "seed_b": "s4000",
+    "aug_a_prompt": "natural lamb crying, balanced tone, moderate intensity",
+    "aug_b_prompt": "natural baby babbling, balanced tone, moderate intensity",
+    "cos_sim": 0.4598
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/sRmvIWHlzBg_000029.mp4",
+  "wav_a": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/sRmvIWHlzBg_000029/P2c_s9000.wav",
+  "wav_b": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/sRmvIWHlzBg_000029/P3_s4000.wav",
+  "ref_a": {
+    "db_idx_v3": 46010,
+    "db_key": "audiocaps/RA4Fm4lQocs_7",
+    "score": 0.8072,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/RA4Fm4lQocs_7.wav"
+  },
+  "ref_b": {
+    "db_idx_v3": 248192,
+    "db_key": "wavcaps_freesound/53974",
+    "score": 0.8738,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/53974.flac"
+  }
+}
