@@ -39,10 +39,56 @@ video { max-height: 240px; background: #000; }
 This page contains selected examples from our VGGSound-based augmentation pipeline. Each example separates <b>GT Category Text</b> from <b>Aug Caption</b>, and every retrieved reference audio is placed directly under the video + audio source used for retrieval.
 </div>
 
-<h2>Representative Example</h2>
+<h2>Piano Examples</h2>
 
 <div class="example representative">
 <h3>Piano Example #1</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>organ melody</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex00/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex00/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> harpsichord rapid arpeggios, bright plucked tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex00/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex00/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> celesta staccato playing, bell-like tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex00/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>Piano Example #2</h3>
 
 <div class="example-meta">
   <div>
@@ -87,7 +133,145 @@ This page contains selected examples from our VGGSound-based augmentation pipeli
 </div>
 </div>
 
-<h2>1. V2A Pairs (Aug × Aug) — 8 examples</h2>
+<div class="example">
+<h3>Piano Example #3</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>upbeat jazz piano melody</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural piano playing, balanced tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> thunderous concert grand piano, aggressive hammered chords, resonant hall-shaking sustain</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>Piano Example #4</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>gentle piano melody plays steadily throughout</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex03/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex03/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural pipe organ playing, balanced tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex03/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex03/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> harpsichord rapid arpeggios, bright plucked tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex03/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<div class="example">
+<h3>Piano Example #5</h3>
+
+<div class="example-meta">
+  <div>
+    <span class="meta-label">GT Category Text</span>
+    <p>playing piano</p>
+  </div>
+  <div>
+    <span class="meta-label">Aug Caption</span>
+    <p>organ melody</p>
+  </div>
+</div>
+<div class="row3">
+  <div class="col">
+    
+<h4><span class="label gt">GT</span> Video + GT Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex04/video_gt.mp4"></video>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex04/video_aug_a.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> natural electric piano playing, balanced tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex04/ref_a.wav"></audio>
+</div>
+  </div>
+  <div class="col">
+    
+<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
+<video controls preload="none" data-media-src="assets/piano/ex04/video_aug_b.mp4"></video>
+    
+<div class="prompt"><b>Aug Prompt:</b> celesta staccato playing, bell-like tone, moderate room ambience</div>
+    
+<div class="reference-block">
+  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
+  <audio controls preload="none" data-media-src="assets/piano/ex04/ref_b.wav"></audio>
+</div>
+  </div>
+</div>
+</div>
+
+<h2>1. V2A Pairs (Aug vs Aug) - 7 examples</h2>
 <p>Selected V2A training pairs using two augmented audio variations of the same VGGSound clip.</p>
 
 <div class="example">
@@ -407,53 +591,6 @@ This page contains selected examples from our VGGSound-based augmentation pipeli
 <div class="reference-block">
   <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
   <audio controls preload="none" data-media-src="assets/v2a/ex09/ref_b.wav"></audio>
-</div>
-  </div>
-</div>
-</div>
-
-
-<div class="example">
-<h3>V2A Pair #8</h3>
-
-<div class="example-meta">
-  <div>
-    <span class="meta-label">GT Category Text</span>
-    <p>playing piano</p>
-  </div>
-  <div>
-    <span class="meta-label">Aug Caption</span>
-    <p>upbeat jazz piano melody</p>
-  </div>
-</div>
-<div class="row3">
-  <div class="col">
-    
-<h4><span class="label gt">GT</span> Video + GT Audio</h4>
-<video controls preload="none" data-media-src="assets/piano/ex02/video_gt.mp4"></video>
-  </div>
-  <div class="col">
-    
-<h4><span class="label aug">Aug A</span> Video + Aug Audio</h4>
-<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_a.mp4"></video>
-    
-<div class="prompt"><b>Aug Prompt:</b> natural piano playing, balanced tone, moderate room ambience</div>
-    
-<div class="reference-block">
-  <h5><span class="label ref">Ref A</span> Retrieved audio for Aug A Video + Aug Audio</h5>
-  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_a.wav"></audio>
-</div>
-  </div>
-  <div class="col">
-    
-<h4><span class="label aug">Aug B</span> Video + Aug Audio</h4>
-<video controls preload="none" data-media-src="assets/piano/ex02/video_aug_b.mp4"></video>
-    
-<div class="prompt"><b>Aug Prompt:</b> thunderous concert grand piano, aggressive hammered chords, resonant hall-shaking sustain</div>
-    
-<div class="reference-block">
-  <h5><span class="label ref">Ref B</span> Retrieved audio for Aug B Video + Aug Audio</h5>
-  <audio controls preload="none" data-media-src="assets/piano/ex02/ref_b.wav"></audio>
 </div>
   </div>
 </div>
