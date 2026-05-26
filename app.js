@@ -76,6 +76,7 @@ function setPageChrome(pageKey, config) {
 function renderSamples(samples, renderer) {
   const content = document.getElementById("content");
   content.innerHTML = samples.map((sample, index) => renderer(sample, index)).join("");
+  setupLazyMedia();
 }
 
 function renderError(error) {
@@ -387,7 +388,7 @@ function renderVideoPanel({ panelClass, tag, title, rows, videoSrc }) {
       <span class="panel-tag">${escapeHtml(tag)}</span>
       <strong>${escapeHtml(title)}</strong>
       ${renderMetaList(rows)}
-      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+      ${renderVideoElement(videoSrc)}
     </div>
   `;
 }
@@ -414,7 +415,7 @@ function renderBareAudioCell({ panelClass, audioSrc }) {
 function renderBareVideoCell({ panelClass, videoSrc }) {
   return `
     <div class="media-panel bare-media-cell ${panelClass}">
-      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+      ${renderVideoElement(videoSrc)}
     </div>
   `;
 }
@@ -442,7 +443,7 @@ function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSr
       <span class="panel-tag">${escapeHtml(tag)}</span>
       <strong>${escapeHtml(title)}</strong>
       ${renderMetaList(rows)}
-      <video controls preload="metadata" playsinline src="${videoSrc}"></video>
+      ${renderVideoElement(videoSrc)}
       ${renderAudioElement(audioSrc)}
     </div>
   `;
@@ -451,9 +452,78 @@ function renderVideoAudioPanel({ panelClass, tag, title, rows, videoSrc, audioSr
 function renderAudioElement(src) {
   return `
     <div class="audio-shell">
-      <audio controls preload="metadata" src="${src}"></audio>
+      <audio controls preload="none" data-media-src="${src}"></audio>
     </div>
   `;
+}
+
+function renderVideoElement(src) {
+  return `
+    <video controls preload="none" playsinline data-media-src="${src}"></video>
+  `;
+}
+
+function setupLazyMedia() {
+  const mediaElements = Array.from(document.querySelectorAll("audio[data-media-src], video[data-media-src]"));
+  if (mediaElements.length === 0) {
+    return;
+  }
+
+  const hydrateMedia = (media) => {
+    const src = media.dataset.mediaSrc;
+    if (!src) {
+      return;
+    }
+
+    media.src = src;
+    media.removeAttribute("data-media-src");
+  };
+
+  const primeNearbyMedia = () => {
+    mediaElements.forEach((media) => {
+      if (!media.dataset.mediaSrc) {
+        return;
+      }
+
+      const rect = media.getBoundingClientRect();
+      if (rect.top <= window.innerHeight + 480 && rect.bottom >= -240) {
+        hydrateMedia(media);
+      }
+    });
+  };
+
+  primeNearbyMedia();
+
+  if (!("IntersectionObserver" in window)) {
+    mediaElements.forEach(hydrateMedia);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      hydrateMedia(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: "480px 0px"
+  });
+
+  mediaElements.forEach((media) => {
+    if (!media.dataset.mediaSrc) {
+      return;
+    }
+
+    const wakeMedia = () => hydrateMedia(media);
+    media.addEventListener("pointerenter", wakeMedia, { once: true });
+    media.addEventListener("focus", wakeMedia, { once: true });
+    media.addEventListener("pointerdown", wakeMedia, { once: true, capture: true });
+    media.addEventListener("touchstart", wakeMedia, { once: true, passive: true });
+    observer.observe(media);
+  });
 }
 
 function renderMetaList(rows) {
