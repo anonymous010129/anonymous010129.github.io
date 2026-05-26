@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "OCR0AL3H7xc_000016",
+  "label": "playing mandolin",
+  "gt_caption": "banjo melody plays clearly",
+  "aug": {
+    "aug_key": "OCR0AL3H7xc_000016/P0_s1000",
+    "ptype": "P0",
+    "seed": "s1000",
+    "aug_prompt": "Natural mandolin strumming, balanced tone, moderate resonance."
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/OCR0AL3H7xc_000016.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/OCR0AL3H7xc_000016.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/OCR0AL3H7xc_000016/P0_s1000.wav",
+  "ref": {
+    "db_idx_v3": 520651,
+    "db_idx_records": 520650,
+    "db_key": "laion_freesound/432533",
+    "score": 0.7656002044677734,
+    "path": "/home/judejiwoo/audioretrieval_data/laion_freesound/audio/test/432533.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 304519,
+    "db_key": "wavcaps_freesound/413500_seg0",
+    "score": 0.882936954498291,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_freesound/413500_seg0.flac"
+  }
+}

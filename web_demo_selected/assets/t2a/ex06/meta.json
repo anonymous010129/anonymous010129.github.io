@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "408ZIJZv0VQ_000042",
+  "label": "people marching",
+  "gt_caption": "woman speaking over crowd noise",
+  "aug": {
+    "aug_key": "408ZIJZv0VQ_000042/P3c_s10000",
+    "ptype": "P3c",
+    "seed": "s10000",
+    "aug_prompt": "steady crowd stair-climbing footsteps with natural group rhythm"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/408ZIJZv0VQ_000042.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/408ZIJZv0VQ_000042.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/408ZIJZv0VQ_000042/P3c_s10000.wav",
+  "ref": {
+    "db_idx_v3": 135178,
+    "db_idx_records": 261037,
+    "db_key": "wavcaps_audioset/YSHMwQJXNqAI",
+    "score": 0.6642929911613464,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YSHMwQJXNqAI.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 94234,
+    "db_key": "wavcaps_audioset/Y2LQidpJPB6E",
+    "score": 0.7618274092674255,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Y2LQidpJPB6E.flac"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "S0VqoUptnEg_000030",
+  "label": "playing violin, fiddle",
+  "gt_caption": "passionate violin melody over piano chords",
+  "aug": {
+    "aug_key": "S0VqoUptnEg_000030/P3b_s7000",
+    "ptype": "P3b",
+    "seed": "s7000",
+    "aug_prompt": "violin tremolo bowing, balanced tone, moderate resonance"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/S0VqoUptnEg_000030.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/S0VqoUptnEg_000030.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/S0VqoUptnEg_000030/P3b_s7000.wav",
+  "ref": {
+    "db_idx_v3": 503061,
+    "db_idx_records": 503060,
+    "db_key": "laion_freesound/459384",
+    "score": 0.7684031128883362,
+    "path": "/home/judejiwoo/audioretrieval_data/laion_freesound/audio/test/459384.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 157676,
+    "db_key": "wavcaps_audioset/Yi-V5Lo9V5_U",
+    "score": 0.7999075651168823,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Yi-V5Lo9V5_U.flac"
+  }
+}

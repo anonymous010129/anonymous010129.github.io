@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "VYtC_vHEe5Y_000010",
+  "label": "people coughing",
+  "gt_caption": "coughing, baby babbling",
+  "aug": {
+    "aug_key": "VYtC_vHEe5Y_000010/P3c_s10000",
+    "ptype": "P3c",
+    "seed": "s10000",
+    "aug_prompt": "natural human wheezing, neutral tone, dry recording"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/VYtC_vHEe5Y_000010.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/VYtC_vHEe5Y_000010.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/VYtC_vHEe5Y_000010/P3c_s10000.wav",
+  "ref": {
+    "db_idx_v3": 196304,
+    "db_idx_records": 276360,
+    "db_key": "wavcaps_freesound/194537",
+    "score": 0.7645466327667236,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/FreeSound/audio/194537.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 155255,
+    "db_key": "wavcaps_audioset/Yg5hwy5tl_qc",
+    "score": 0.8869709372520447,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/Yg5hwy5tl_qc.flac"
+  }
+}

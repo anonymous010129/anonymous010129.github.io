@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "ho2trfBD204_000030",
+  "label": "child speech, kid speaking",
+  "gt_caption": "child laughing, child talking",
+  "aug": {
+    "aug_key": "ho2trfBD204_000030/P4b_s8000",
+    "ptype": "P4b",
+    "seed": "s8000",
+    "aug_prompt": "adult man murmuring softly, low and steady"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/ho2trfBD204_000030.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/ho2trfBD204_000030.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/ho2trfBD204_000030/P4b_s8000.wav",
+  "ref": {
+    "db_idx_v3": 52145,
+    "db_idx_records": 240296,
+    "db_key": "audiocaps/W4k7j7k0ZEo_70",
+    "score": 0.7886068224906921,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/W4k7j7k0ZEo_70.wav"
+  },
+  "gt_ref": {
+    "db_idx_v3": 152925,
+    "db_key": "wavcaps_audioset/YeORQVKEEP-I",
+    "score": 0.9011092185974121,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YeORQVKEEP-I.flac"
+  }
+}

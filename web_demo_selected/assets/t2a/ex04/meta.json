@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "MZ50nID019g_000014",
+  "label": "fireworks banging",
+  "gt_caption": "gunshot followed by distant gunfire",
+  "aug": {
+    "aug_key": "MZ50nID019g_000014/P2c_s9000",
+    "ptype": "P2c",
+    "seed": "s9000",
+    "aug_prompt": "M80s banging with crisp explosive pops"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/MZ50nID019g_000014.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/MZ50nID019g_000014.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/MZ50nID019g_000014/P2c_s9000.wav",
+  "ref": {
+    "db_idx_v3": 178316,
+    "db_idx_records": 158262,
+    "db_key": "wavcaps_audioset/YyXk0ydP4u-M",
+    "score": 0.87730872631073,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YyXk0ydP4u-M.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 118860,
+    "db_key": "wavcaps_audioset/YGi2hxPsU8d8",
+    "score": 0.9093836545944214,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YGi2hxPsU8d8.flac"
+  }
+}

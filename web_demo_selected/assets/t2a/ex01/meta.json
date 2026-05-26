@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "bDgk5UKslfk_000364",
+  "label": "parrot talking",
+  "gt_caption": "bird chirping, cat meowing, bird whistling",
+  "aug": {
+    "aug_key": "bDgk5UKslfk_000364/P1_s2000",
+    "ptype": "P1",
+    "seed": "s2000",
+    "aug_prompt": "raucous macaw screeches with harsh, frantic human-like mimicry"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/bDgk5UKslfk_000364.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/bDgk5UKslfk_000364.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/bDgk5UKslfk_000364/P1_s2000.wav",
+  "ref": {
+    "db_idx_v3": 344165,
+    "db_idx_records": 427024,
+    "db_key": "wavcaps_bbc/NHU05017040_seg0",
+    "score": 0.8037702441215515,
+    "path": "/home/judejiwoo/v2a-sync/data/augmented/audiodb_trimmed/wavcaps_bbc/NHU05017040_seg0.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 62786,
+    "db_key": "audiocaps/e31OzfgXvdQ_460",
+    "score": 0.6916757225990295,
+    "path": "/home/judejiwoo/audioretrieval_data/AudioCaps/audiocaps_raw_audio/e31OzfgXvdQ_460.wav"
+  }
+}

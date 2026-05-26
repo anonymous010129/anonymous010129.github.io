@@ -1,0 +1,28 @@
+{
+  "kind": "t2a",
+  "vid_id": "-oqXIcpJKys_000030",
+  "label": "male singing",
+  "gt_caption": "crowd cheering, rhythmic drumming",
+  "aug": {
+    "aug_key": "-oqXIcpJKys_000030/P3b_s7000",
+    "ptype": "P3b",
+    "seed": "s7000",
+    "aug_prompt": "male whistling gently, natural tone, moderate resonance"
+  },
+  "video": "/home/judejiwoo/vggsound/scratch/shared/beegfs/hchen/train_data/VGGSound_final/video/-oqXIcpJKys_000030.mp4",
+  "wav_gt": "/home/judejiwoo/v2a-sync/data/augmented/m2d_embeddings/gt_wavs/-oqXIcpJKys_000030.wav",
+  "wav_aug": "/home/judejiwoo/v2a-sync/data/augmented/wavs_tmp/-oqXIcpJKys_000030/P3b_s7000.wav",
+  "ref": {
+    "db_idx_v3": 127955,
+    "db_idx_records": 373009,
+    "db_key": "wavcaps_audioset/YN5Y7zL-CHYA",
+    "score": 0.8061821460723877,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YN5Y7zL-CHYA.flac"
+  },
+  "gt_ref": {
+    "db_idx_v3": 116463,
+    "db_key": "wavcaps_audioset/YF6Y1ZY-HDzo",
+    "score": 0.881879448890686,
+    "path": "/home/judejiwoo/audioretrieval_data/wavcaps/audio/AudioSet_SL/audio/YF6Y1ZY-HDzo.flac"
+  }
+}
