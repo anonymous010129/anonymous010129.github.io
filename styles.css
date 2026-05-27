@@ -181,6 +181,11 @@ a {
   grid-template-columns: 1fr;
 }
 
+.figure-panel.is-compact .figure-viewer-wrap {
+  width: 50%;
+  margin: 0 auto;
+}
+
 .figure-viewer-wrap {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -199,6 +204,14 @@ a {
   margin: 16px 0 0;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.figure-name {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .figure-link {

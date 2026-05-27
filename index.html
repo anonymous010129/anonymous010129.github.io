@@ -47,17 +47,14 @@
       </section>
 
       <section class="figures-section">
-        <div class="section-head">
-          <h2>Figures</h2>
-        </div>
-
         <div class="figure-stack">
-          <article class="figure-panel">
+          <article class="figure-panel is-compact">
             <div class="figure-viewer-wrap">
               <img class="figure-image" src="figures/Figure1_1.png" alt="Figure 1. ConRet overview.">
             </div>
+            <div class="figure-name">Figure 1</div>
             <p class="figure-caption">
-              <strong>Figure 1:</strong> ConRet overview. Top: the three-step VGGSound-ConRet dataset creation -
+              ConRet overview. Top: the three-step VGGSound-ConRet dataset creation -
               (1) AF-Next caption generation and LLM-based prompt augmentation, (2) MMAudio audio rendering,
               (3) retrieval of references from the 551K leakage-free pool. Middle: prior AC-V2A models train
               with a self-reference cropped from the GT audio. Bottom: ConRet trains under a retrieval-augmented
@@ -71,8 +68,9 @@
             <div class="figure-viewer-wrap">
               <img class="figure-image" src="figures/Figure2_1.png" alt="Figure 2. Data pipeline.">
             </div>
+            <div class="figure-name">Figure 2</div>
             <p class="figure-caption">
-              <strong>Figure 2:</strong> Data pipeline. Per anchor: (1) an LLM expands the category text into
+              Data pipeline. Per anchor: (1) an LLM expands the category text into
               11 source/context-perturbed prompts (P0-P4c); (2) a pre-trained text-conditioned MMAudio renders
               each prompt; (3) multi-stage quality filtering keeps the well-synced subset (~700K). (4) the
               retrieval module pairs the surviving augmented clips against the leakage-free reference DB (~550K)
@@ -86,8 +84,9 @@
             <div class="figure-viewer-wrap">
               <img class="figure-image" src="figures/Figure3_1.png" alt="Figure 3. Two contrastive training branches.">
             </div>
+            <div class="figure-name">Figure 3</div>
             <p class="figure-caption">
-              <strong>Figure 3:</strong> Two contrastive training branches. Left: CONRET-T2A uses a 3-way forward
+              Two contrastive training branches. Left: CONRET-T2A uses a 3-way forward
               pass per step - an Anchor (no reference) plus two reference branches (self-cropped or retrieved),
               with contrastive losses pulling the Anchor toward GT-ref and pushing GT-ref / Aug-ref apart on a
               denoiser feature. Right: CONRET-V2A uses a 2-way forward pass - the GT video acts as an implicit
