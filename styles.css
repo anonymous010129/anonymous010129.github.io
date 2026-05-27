@@ -126,7 +126,8 @@ a {
 
 .landing-grid,
 .page-card-grid,
-.results-grid {
+.results-grid,
+.figure-stack {
   display: grid;
   gap: 18px;
 }
@@ -139,7 +140,8 @@ a {
 .info-panel,
 .result-panel,
 .page-card,
-.footnote-section {
+.footnote-section,
+.figure-panel {
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -157,6 +159,7 @@ a {
 }
 
 .results-section,
+.figures-section,
 .pages-section,
 .footnote-section {
   margin-top: 28px;
@@ -172,6 +175,36 @@ a {
 
 .results-grid {
   grid-template-columns: 1fr;
+}
+
+.figure-stack {
+  grid-template-columns: 1fr;
+}
+
+.figure-viewer-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.figure-viewer {
+  display: block;
+  width: 100%;
+  height: min(72vh, 760px);
+  min-height: 440px;
+  border: 0;
+  background: #ffffff;
+}
+
+.figure-caption {
+  margin: 16px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.figure-link {
+  margin-top: 16px;
 }
 
 .table-wrap {
