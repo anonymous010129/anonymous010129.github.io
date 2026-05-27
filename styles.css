@@ -186,6 +186,11 @@ a {
   margin: 0 auto;
 }
 
+.figure-viewer-link {
+  display: block;
+  text-decoration: none;
+}
+
 .figure-viewer-wrap {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -212,10 +217,6 @@ a {
   color: var(--text);
   font-size: 0.92rem;
   font-weight: 700;
-}
-
-.figure-link {
-  margin-top: 16px;
 }
 
 .table-wrap {
