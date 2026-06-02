@@ -1,15 +1,17 @@
 const PIANO_SAMPLE_DIRS = ["ex00", "ex01", "ex02", "ex03", "ex04"];
 
 const V2A_SAMPLE_ORDER = [
+  "Hf-uMkF-gyA_000296",
+  "TipVfZMxZbk_000010",
+  "TY7UehpsaFQ_000144",
   "1WGfcIOLUK8_000030",
-  "6I9BFjKBjLY_000037",
-  "7l_TPfOhh5c_000570",
-  "aDTCjyFFbkA_000142",
   "h8fMUaesCrA_000168",
-  "KDE80kI1Kf0_000040",
-  "kf0YrFpuNKQ_000030",
-  "Kqw--nmhaRw_000931",
-  "ocsV6Tit_9E_000200"
+  "B7ji5hTzBVA_000038",
+  "MCiKNkQnN7w_000146",
+  "UyCw7pCgYg8_000055",
+  "0wzsE67O5tE_000230",
+  "6V9JinlbpHw_000082",
+  "nmp9yqhsjqg_000350"
 ];
 
 const T2A_SAMPLE_ORDER = [
@@ -31,7 +33,7 @@ const PAGE_CONFIG = {
   v2a: {
     kicker: "Page 2",
     title: "Audio Conditioned V2A Generation Quality Check",
-    description: "This page compares ConRet (Ours) against AC-Foley and ControlFoley under the same three reference conditions. For each sample, you can listen to the reference audio first and then compare how the three systems respond to it.",
+    description: "This page compares ConRet (Ours), AC-Foley, and ControlFoley in two settings. Each sample first shows video-to-audio outputs without an audio reference, then provides the retrieved reference audio, followed by the reference-conditioned outputs from the same three models.",
     load: loadV2ASamples,
     render: renderV2ASample
   },
@@ -110,29 +112,19 @@ async function loadPianoSamples() {
 }
 
 async function loadV2ASamples() {
-  const mapping = await fetchJson("V2A_sample/refs_mapping.json");
   return V2A_SAMPLE_ORDER.map((id) => {
-    const sample = mapping[id];
-    if (!sample) {
-      throw new Error(`Missing V2A mapping for ${id}`);
-    }
-
+    const basePath = `web_demo_v2a/samples/${id}`;
     return {
-      ...sample,
+      id,
       anchor: `sample-${id}`,
       paths: {
-        refGt: `V2A_sample/ref_gt/${id}.wav`,
-        refMid: `V2A_sample/ref_mid/${id}.wav`,
-        refRandom: `V2A_sample/ref_random/${id}.wav`,
-        conretGt: `V2A_sample/gen_by_ref_gt/${id}.mp4`,
-        genMid: `V2A_sample/gen_by_ref_mid/${id}.mp4`,
-        genRandom: `V2A_sample/gen_by_ref_random/${id}.mp4`,
-        acfGt: `V2A_sample/acf_gen_by_ref_gt/${id}.mp4`,
-        acfMid: `V2A_sample/acf_gen_by_ref_mid/${id}.mp4`,
-        acfRandom: `V2A_sample/acf_gen_by_ref_random/${id}.mp4`,
-        cfGt: `V2A_sample/cf_gen_by_ref_gt/${id}.mp4`,
-        cfMid: `V2A_sample/cf_gen_by_ref_mid/${id}.mp4`,
-        cfRandom: `V2A_sample/cf_gen_by_ref_random/${id}.mp4`
+        refAudio: `${basePath}/ref.wav`,
+        noRefConret: `${basePath}/noref_ours.mp4`,
+        noRefAcFoley: `${basePath}/noref_acf.mp4`,
+        noRefControlFoley: `${basePath}/noref_cf.mp4`,
+        refConret: `${basePath}/ref_ours.mp4`,
+        refAcFoley: `${basePath}/ref_acf.mp4`,
+        refControlFoley: `${basePath}/ref_cf.mp4`
       }
     };
   });
@@ -222,6 +214,17 @@ function renderPianoSample(sample, index) {
 
 function renderV2ASample(sample, index) {
   const sampleNumber = String(index + 1).padStart(2, "0");
+  const noRefVideos = [
+    { label: "ConRet (Ours)", videoSrc: sample.paths.noRefConret, className: "ours" },
+    { label: "AC-Foley", videoSrc: sample.paths.noRefAcFoley, className: "baseline" },
+    { label: "ControlFoley", videoSrc: sample.paths.noRefControlFoley, className: "baseline" }
+  ];
+  const refVideos = [
+    { label: "ConRet (Ours)", videoSrc: sample.paths.refConret, className: "ours" },
+    { label: "AC-Foley", videoSrc: sample.paths.refAcFoley, className: "baseline" },
+    { label: "ControlFoley", videoSrc: sample.paths.refControlFoley, className: "baseline" }
+  ];
+
   return `
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
@@ -229,35 +232,20 @@ function renderV2ASample(sample, index) {
       </div>
 
       <div class="sample-scroll">
-        <div class="v2a-compare">
-          <div class="v2a-head-spacer"></div>
-          <div class="matrix-head-cell">Reference</div>
-          <div class="matrix-head-cell">ConRet (Ours)</div>
-          <div class="matrix-head-cell">AC-Foley</div>
-          <div class="matrix-head-cell">ControlFoley</div>
-
-          ${renderV2ARow({
-            rowLabel: "Reference GT",
-            refAudioSrc: sample.paths.refGt,
-            conretVideoSrc: sample.paths.conretGt,
-            acfVideoSrc: sample.paths.acfGt,
-            cfVideoSrc: sample.paths.cfGt
+        <div class="v2a-listening-layout">
+          ${renderV2AStage({
+            title: "No-reference V2A",
+            body: renderV2AVideoRow(noRefVideos)
           })}
 
-          ${renderV2ARow({
-            rowLabel: "Reference Mid",
-            refAudioSrc: sample.paths.refMid,
-            conretVideoSrc: sample.paths.genMid,
-            acfVideoSrc: sample.paths.acfMid,
-            cfVideoSrc: sample.paths.cfMid
+          ${renderV2AStage({
+            title: "Retrieved reference audio",
+            body: renderV2AReference(sample.paths.refAudio)
           })}
 
-          ${renderV2ARow({
-            rowLabel: "Reference Random",
-            refAudioSrc: sample.paths.refRandom,
-            conretVideoSrc: sample.paths.genRandom,
-            acfVideoSrc: sample.paths.acfRandom,
-            cfVideoSrc: sample.paths.cfRandom
+          ${renderV2AStage({
+            title: "Reference-conditioned V2A",
+            body: renderV2AVideoRow(refVideos)
           })}
         </div>
       </div>
@@ -265,31 +253,37 @@ function renderV2ASample(sample, index) {
   `;
 }
 
-function renderV2ARow({
-  rowLabel,
-  refAudioSrc,
-  conretVideoSrc,
-  acfVideoSrc,
-  cfVideoSrc
-}) {
+function renderV2AStage({ title, body }) {
   return `
-    <div class="v2a-row-label">${escapeHtml(rowLabel)}</div>
-    ${renderBareAudioCell({
-      panelClass: "ref-panel v2a-panel v2a-cell",
-      audioSrc: refAudioSrc
-    })}
-    ${renderBareVideoCell({
-      panelClass: "gen-panel v2a-panel v2a-cell",
-      videoSrc: conretVideoSrc
-    })}
-    ${renderBareVideoCell({
-      panelClass: "gen-panel v2a-panel v2a-cell",
-      videoSrc: acfVideoSrc
-    })}
-    ${renderBareVideoCell({
-      panelClass: "gen-panel v2a-panel v2a-cell",
-      videoSrc: cfVideoSrc
-    })}
+    <section class="v2a-stage">
+      <h3 class="v2a-stage-title">${escapeHtml(title)}</h3>
+      ${body}
+    </section>
+  `;
+}
+
+function renderV2AVideoRow(videos) {
+  return `
+    <div class="v2a-video-row">
+      ${videos.map((video) => renderV2AVideoCard(video)).join("")}
+    </div>
+  `;
+}
+
+function renderV2AVideoCard({ label, videoSrc, className }) {
+  return `
+    <div class="media-panel gen-panel v2a-output-card ${escapeHtml(className)}">
+      <strong>${escapeHtml(label)}</strong>
+      ${renderVideoElement(videoSrc)}
+    </div>
+  `;
+}
+
+function renderV2AReference(audioSrc) {
+  return `
+    <div class="media-panel ref-panel v2a-reference-card">
+      ${renderAudioElement(audioSrc)}
+    </div>
   `;
 }
 
