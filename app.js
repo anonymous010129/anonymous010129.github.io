@@ -22,6 +22,39 @@ const T2A_SAMPLE_ORDER = [
   "ocsV6Tit_9E_000200"
 ];
 
+const T2A_HIGH_SIM_SAMPLES = [
+  {
+    id: "01",
+    caption: "subway train moving on tracks",
+    referenceNote: "subway, metro, underground"
+  },
+  {
+    id: "02",
+    caption: "fire truck siren wailing loudly as vehicle moves past",
+    referenceNote: "ambulance siren"
+  },
+  {
+    id: "03",
+    caption: "power tool drilling loudly",
+    referenceNote: "electric grinder grinding"
+  },
+  {
+    id: "04",
+    caption: "thud followed by rhythmic clatter then another thud",
+    referenceNote: "playing bongo"
+  },
+  {
+    id: "05",
+    caption: "Bird chirping, bird whistling",
+    referenceNote: "people whistling"
+  },
+  {
+    id: "06",
+    caption: "wind blowing strongly",
+    referenceNote: "wind noise"
+  }
+];
+
 const PAGE_CONFIG = {
   piano: {
     kicker: "Page 1",
@@ -40,7 +73,7 @@ const PAGE_CONFIG = {
   t2a: {
     kicker: "Page 3",
     title: "Audio Conditioned T2A Generation Quality Check",
-    description: "This page focuses on how the generated audio changes under different conditioning modes. Each sample shares one prompt, then pairs each reference input directly with the matching ConRet (Ours) output for easier listening.",
+    description: "This page focuses on how the generated audio changes under different conditioning modes. The first set compares mid-sim, random, and no-reference pairs; the second set compares high-sim and no-reference pairs.",
     load: loadT2ASamples,
     render: renderT2ASample
   }
@@ -132,7 +165,7 @@ async function loadV2ASamples() {
 
 async function loadT2ASamples() {
   const mapping = await fetchJson("T2A_sample/refs_mapping.json");
-  const samples = await Promise.all(T2A_SAMPLE_ORDER.map(async (id) => {
+  const baseSamples = await Promise.all(T2A_SAMPLE_ORDER.map(async (id, index) => {
     const sample = mapping[id];
     if (!sample) {
       throw new Error(`Missing T2A mapping for ${id}`);
@@ -143,6 +176,10 @@ async function loadT2ASamples() {
     return {
       ...sample,
       meta,
+      sampleSet: "base",
+      title: titleCase(sample.label),
+      groupTitle: index === 0 ? "Samples 01-05" : null,
+      groupDescription: index === 0 ? "Mid-sim pair / Random pair / No-ref pair" : null,
       promptText: meta.afn_caption || meta.gt_caption || sample.label,
       anchor: `sample-${id}`,
       paths: {
@@ -155,7 +192,22 @@ async function loadT2ASamples() {
     };
   }));
 
-  return samples;
+  const highSimSamples = T2A_HIGH_SIM_SAMPLES.map((sample, index) => ({
+    ...sample,
+    sampleSet: "high-sim",
+    title: sample.referenceNote,
+    promptText: sample.caption,
+    groupTitle: index === 0 ? "Samples 06-11" : null,
+    groupDescription: index === 0 ? "High-sim pair / No-ref pair" : null,
+    anchor: `sample-high-sim-${sample.id}`,
+    paths: {
+      refHigh: `inert_picked6/${sample.id}_refaudio.wav`,
+      genHigh: `inert_picked6/${sample.id}_refgen.wav`,
+      genNoRef: `inert_picked6/${sample.id}_noref.wav`
+    }
+  }));
+
+  return [...baseSamples, ...highSimSamples];
 }
 
 function renderPianoSample(sample, index) {
@@ -290,79 +342,157 @@ function renderV2AReference(audioSrc) {
 function renderT2ASample(sample, index) {
   const sampleNumber = String(index + 1).padStart(2, "0");
   return `
+    ${renderSampleGroupHeader(sample)}
     <section class="sample-block" id="${sample.anchor}">
       <div class="sample-head">
         <span class="sample-index">Sample ${sampleNumber}</span>
-        <h2 class="sample-title">${escapeHtml(titleCase(sample.label))}</h2>
-        <p class="sample-subtitle">Prompt: ${escapeHtml(sample.promptText)}</p>
+        <h2 class="sample-title">${escapeHtml(sample.title)}</h2>
+        ${renderT2ASampleSubtitle(sample)}
       </div>
 
       <div class="sample-scroll">
         <div class="t2a-pair-list">
-          ${renderT2APairRow({
-            pairLabel: "Mid-sim pair",
-            leftPanel: renderAudioPanel({
-              panelClass: "ref-panel",
-              tag: "Reference",
-              title: "Input reference audio",
-              rows: [
-                { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
-              ],
-              audioSrc: sample.paths.refMid,
-              isAvailable: true
-            }),
-            rightPanel: renderAudioPanel({
-              panelClass: "gen-panel",
-              tag: "ConRet (Ours)",
-              title: "Generated output",
-              rows: [],
-              audioSrc: sample.paths.genMid,
-              isAvailable: true
-            })
-          })}
-
-          ${renderT2APairRow({
-            pairLabel: "Random pair",
-            leftPanel: renderAudioPanel({
-              panelClass: "ref-panel",
-              tag: "Reference",
-              title: "Input reference audio",
-              rows: [
-                { label: "Retriever score", value: randomPairScore(sample) }
-              ],
-              audioSrc: sample.paths.refRandom,
-              isAvailable: true
-            }),
-            rightPanel: renderAudioPanel({
-              panelClass: "gen-panel",
-              tag: "ConRet (Ours)",
-              title: "Generated output",
-              rows: [],
-              audioSrc: sample.paths.genRandom,
-              isAvailable: true
-            })
-          })}
-
-          ${renderT2APairRow({
-            pairLabel: "No-ref pair",
-            leftPanel: renderInfoPanel({
-              panelClass: "ref-panel",
-              tag: "Reference",
-              title: "No reference input",
-              body: "Prompt-only generation"
-            }),
-            rightPanel: renderAudioPanel({
-              panelClass: "gen-panel",
-              tag: "ConRet (Ours)",
-              title: "Generated output",
-              rows: [],
-              audioSrc: sample.paths.genNoRef,
-              isAvailable: true
-            })
-          })}
+          ${renderT2APairRows(sample)}
         </div>
       </div>
     </section>
+  `;
+}
+
+function renderSampleGroupHeader(sample) {
+  if (!sample.groupTitle) {
+    return "";
+  }
+
+  return `
+    <section class="sample-group-head">
+      <h2>${escapeHtml(sample.groupTitle)}</h2>
+      <p>${escapeHtml(sample.groupDescription)}</p>
+    </section>
+  `;
+}
+
+function renderT2ASampleSubtitle(sample) {
+  if (sample.sampleSet === "high-sim") {
+    return `<p class="sample-subtitle">prompt: ${escapeHtml(sample.promptText)}</p>`;
+  }
+  return `<p class="sample-subtitle">Prompt: ${escapeHtml(sample.promptText)}</p>`;
+}
+
+function renderT2APairRows(sample) {
+  if (sample.sampleSet === "high-sim") {
+    return renderT2AHighSimPairRows(sample);
+  }
+  return renderT2ABasePairRows(sample);
+}
+
+function renderT2ABasePairRows(sample) {
+  return `
+    ${renderT2APairRow({
+      pairLabel: "Mid-sim pair",
+      leftPanel: renderAudioPanel({
+        panelClass: "ref-panel",
+        tag: "Reference",
+        title: "Input reference audio",
+        rows: [
+          { label: "Retriever score", value: formatNumber(sample.ref_mid.score) }
+        ],
+        audioSrc: sample.paths.refMid,
+        isAvailable: true
+      }),
+      rightPanel: renderAudioPanel({
+        panelClass: "gen-panel",
+        tag: "ConRet (Ours)",
+        title: "Generated output",
+        rows: [],
+        audioSrc: sample.paths.genMid,
+        isAvailable: true
+      })
+    })}
+
+    ${renderT2APairRow({
+      pairLabel: "Random pair",
+      leftPanel: renderAudioPanel({
+        panelClass: "ref-panel",
+        tag: "Reference",
+        title: "Input reference audio",
+        rows: [
+          { label: "Retriever score", value: randomPairScore(sample) }
+        ],
+        audioSrc: sample.paths.refRandom,
+        isAvailable: true
+      }),
+      rightPanel: renderAudioPanel({
+        panelClass: "gen-panel",
+        tag: "ConRet (Ours)",
+        title: "Generated output",
+        rows: [],
+        audioSrc: sample.paths.genRandom,
+        isAvailable: true
+      })
+    })}
+
+    ${renderT2APairRow({
+      pairLabel: "No-ref pair",
+      leftPanel: renderInfoPanel({
+        panelClass: "ref-panel",
+        tag: "Reference",
+        title: "No reference input",
+        body: "Prompt-only generation"
+      }),
+      rightPanel: renderAudioPanel({
+        panelClass: "gen-panel",
+        tag: "ConRet (Ours)",
+        title: "Generated output",
+        rows: [],
+        audioSrc: sample.paths.genNoRef,
+        isAvailable: true
+      })
+    })}
+  `;
+}
+
+function renderT2AHighSimPairRows(sample) {
+  return `
+    ${renderT2APairRow({
+      pairLabel: "High-sim pair",
+      leftPanel: renderAudioPanel({
+        panelClass: "ref-panel",
+        tag: "Reference",
+        title: "Input reference audio",
+        rows: [
+          { label: "Reference", value: sample.referenceNote }
+        ],
+        audioSrc: sample.paths.refHigh,
+        isAvailable: true
+      }),
+      rightPanel: renderAudioPanel({
+        panelClass: "gen-panel",
+        tag: "ConRet (Ours)",
+        title: "Generated output",
+        rows: [],
+        audioSrc: sample.paths.genHigh,
+        isAvailable: true
+      })
+    })}
+
+    ${renderT2APairRow({
+      pairLabel: "No-ref pair",
+      leftPanel: renderInfoPanel({
+        panelClass: "ref-panel",
+        tag: "Reference",
+        title: "No reference input",
+        body: "Prompt-only generation"
+      }),
+      rightPanel: renderAudioPanel({
+        panelClass: "gen-panel",
+        tag: "ConRet (Ours)",
+        title: "Generated output",
+        rows: [],
+        audioSrc: sample.paths.genNoRef,
+        isAvailable: true
+      })
+    })}
   `;
 }
 
